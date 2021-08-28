@@ -8,6 +8,7 @@ const StyledList = styled.ul`
 display: flex;
 flex-direction: column;
 
+margin: 0 1rem;
 padding: 0;
 `;
 
