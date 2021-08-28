@@ -1,0 +1,127 @@
+{
+  "version": 2,
+  "projects": {
+    "chengzi-tools": {
+      "root": "apps/chengzi-tools",
+      "sourceRoot": "apps/chengzi-tools/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/chengzi-tools",
+            "index": "apps/chengzi-tools/src/index.html",
+            "main": "apps/chengzi-tools/src/main.tsx",
+            "polyfills": "apps/chengzi-tools/src/polyfills.ts",
+            "tsConfig": "apps/chengzi-tools/tsconfig.app.json",
+            "assets": [
+              "apps/chengzi-tools/src/favicon.ico",
+              "apps/chengzi-tools/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/chengzi-tools/src/environments/environment.ts",
+                  "with": "apps/chengzi-tools/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "chengzi-tools:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "chengzi-tools:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/chengzi-tools/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/chengzi-tools"],
+          "options": {
+            "jestConfig": "apps/chengzi-tools/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "chengzi-tools-e2e": {
+      "root": "apps/chengzi-tools-e2e",
+      "sourceRoot": "apps/chengzi-tools-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/chengzi-tools-e2e/cypress.json",
+            "devServerTarget": "chengzi-tools:serve",
+            "tsConfig": "apps/chengzi-tools-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "chengzi-tools:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/chengzi-tools-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "chengzi-tools"
+}

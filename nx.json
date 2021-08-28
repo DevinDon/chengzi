@@ -1,0 +1,46 @@
+{
+  "npmScope": "chengzi-tools",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
+        "accessToken": "MGY4ZmY3ZGItNWZmMC00ZjQ4LWIxZDMtM2VlOGI2MWI5MjE2fHJlYWQtd3JpdGU="
+      }
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "projects": {
+    "chengzi-tools": {
+      "tags": []
+    },
+    "chengzi-tools-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "chengzi-tools"
+      ]
+    }
+  }
+}
