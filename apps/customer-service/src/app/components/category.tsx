@@ -1,9 +1,16 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import type { Category } from '../states';
-import { useItems } from '../states/items';
+import { useItemInsert, useItems } from '../states/items';
+import EditorComponent from './dialog/editor';
 import ItemComponent from './item';
 
 type Props = Category;
+
+const StyledHeading = styled.h3`
+  width: 100%;
+  text-align: center;
+`;
 
 const StyledList = styled.ul`
   display: flex;
@@ -13,14 +20,16 @@ const StyledList = styled.ul`
   padding: 0;
 `;
 
-const StyledHeading = styled.h3`
-  width: 100%;
-  text-align: center;
+const StyledItemInsert = styled.li`
+  width: 300px;
 `;
 
 export default ({ name }: Props) => {
 
+  const [isInserting, setIsInserting] = useState(false);
+
   const items = useItems();
+  const insert = useItemInsert();
 
   return <div>
     <StyledHeading className="siimple-h3">{name}</StyledHeading>
@@ -31,7 +40,22 @@ export default ({ name }: Props) => {
           .sort((a, b) => b.frequency - a.frequency)
           .map(item => <ItemComponent key={item.id} {...item} />)
       }
+      <StyledItemInsert className="siimple-list-item" onClick={() => setIsInserting(true)}>
+        <span role="img" aria-label="add">➕</span> 点击添加常用短语
+      </StyledItemInsert>
     </StyledList>
+    {
+      isInserting && <EditorComponent
+        content=""
+        confirm={(text: string) => {
+          insert({ id: Date.now().toString(), content: text, category: name, frequency: 0 });
+          setIsInserting(false);
+        }}
+        cancel={() => {
+          setIsInserting(false);
+        }}
+      />
+    }
   </div>;
 
 };

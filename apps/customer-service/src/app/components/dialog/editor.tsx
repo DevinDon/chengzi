@@ -28,9 +28,13 @@ export default ({ content, confirm, cancel }: Props) => {
         <div className="siimple-modal-header-close" onClick={cancel}></div>
       </div>
       <div className="siimple-modal-body">
-        <textarea className="siimple-textarea siimple-textarea--fluid" rows={3} value={text} onInput={e => setText(e.currentTarget.value)}>
-          在这里输入你的短语……
-        </textarea>
+        <textarea
+          className="siimple-textarea siimple-textarea--fluid"
+          rows={3}
+          value={text}
+          onInput={e => setText(e.currentTarget.value)}
+          placeholder="在这里输入你的短语……"
+        ></textarea>
       </div>
       <StyledFooter className="siimple-modal-footer">
         <button className="siimple-btn siimple-btn--error" onClick={cancel}>取消</button>

@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Item, useItemRemove, useItemUpdate } from '../states';
-import { useItemUpdateFrequency } from '../states';
-import EditorComponent from './editor';
-import ConfirmComponent from './confirm';
+import { Item, useItemRemove, useItemUpdate, useItemUpdateFrequency } from '../states';
+import ConfirmComponent from './dialog/confirm';
+import EditorComponent from './dialog/editor';
 
 type Props = Item;
 
