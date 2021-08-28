@@ -63,7 +63,7 @@ export const saveItems = debounce(
 );
 
 export const loadItems = (): Item[] =>
-  JSON.parse(localStorage.getItem(itemsKey) || 'undefined') || items;
+  JSON.parse(localStorage.getItem(itemsKey) || 'null') || items;
 
 const categoriesKey = 'customer-service/categories';
 
@@ -75,4 +75,4 @@ export const saveCategories = debounce(
 );
 
 export const loadCategories = (): Category[] =>
-  JSON.parse(localStorage.getItem(categoriesKey) || 'undefined') || categories;
+  JSON.parse(localStorage.getItem(categoriesKey) || 'null') || categories;
