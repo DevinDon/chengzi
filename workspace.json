@@ -102,6 +102,107 @@
           }
         }
       }
+    },
+    "customer-service": {
+      "root": "apps/customer-service",
+      "sourceRoot": "apps/customer-service/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/customer-service",
+            "index": "apps/customer-service/src/index.html",
+            "main": "apps/customer-service/src/main.tsx",
+            "polyfills": "apps/customer-service/src/polyfills.ts",
+            "tsConfig": "apps/customer-service/tsconfig.app.json",
+            "assets": [
+              "apps/customer-service/src/favicon.ico",
+              "apps/customer-service/src/assets"
+            ],
+            "styles": [],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/customer-service/src/environments/environment.ts",
+                  "with": "apps/customer-service/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "customer-service:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "customer-service:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/customer-service/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/customer-service"],
+          "options": {
+            "jestConfig": "apps/customer-service/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "customer-service-e2e": {
+      "root": "apps/customer-service-e2e",
+      "sourceRoot": "apps/customer-service-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/customer-service-e2e/cypress.json",
+            "devServerTarget": "customer-service:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "customer-service:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/customer-service-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
     }
   },
   "cli": {
