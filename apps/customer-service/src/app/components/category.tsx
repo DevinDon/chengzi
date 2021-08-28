@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import type { Category } from '../states';
+import { useItems } from '../states/items';
 import ItemComponent from './item';
 
 type Props = Category;
@@ -17,13 +18,20 @@ const StyledHeading = styled.h3`
   text-align: center;
 `;
 
-export default ({ name, items }: Props) => <div>
-  <StyledHeading className="siimple-h3">{name}</StyledHeading>
-  <StyledList className="siimple-list siimple-list--hover">
-    {
-      items
-        .sort((a, b) => b.frequency - a.frequency)
-        .map(item => <ItemComponent key={item.id} {...item} />)
-    }
-  </StyledList>
-</div>;
+export default ({ name }: Props) => {
+
+  const items = useItems();
+
+  return <div>
+    <StyledHeading className="siimple-h3">{name}</StyledHeading>
+    <StyledList className="siimple-list siimple-list--hover">
+      {
+        items
+          .filter(item => item.category === name)
+          .sort((a, b) => b.frequency - a.frequency)
+          .map(item => <ItemComponent key={item.id} {...item} />)
+      }
+    </StyledList>
+  </div>;
+
+};
