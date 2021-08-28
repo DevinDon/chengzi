@@ -7,7 +7,7 @@ import 'siimple/dist/siimple.min.css';
 import App from './app/app';
 import { CategoriesProvider, ItemsProvider } from './app/states';
 
-const clipboard = new ClipboardJS('.siimple-list-item');
+new ClipboardJS('.copy-text');
 
 ReactDOM.render(
   <StrictMode>
