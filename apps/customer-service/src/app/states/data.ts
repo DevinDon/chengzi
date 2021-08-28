@@ -58,7 +58,6 @@ const itemsKey = 'customer-service/items';
 export const saveItems = debounce(
   (items: Item[]) => {
     localStorage.setItem(itemsKey, JSON.stringify(items));
-    console.log('save items');
   },
 );
 
@@ -70,7 +69,6 @@ const categoriesKey = 'customer-service/categories';
 export const saveCategories = debounce(
   (categories: Category[]) => {
     localStorage.setItem(categoriesKey, JSON.stringify(categories));
-    console.log('save categories');
   },
 );
 
