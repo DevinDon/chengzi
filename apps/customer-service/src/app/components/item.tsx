@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Item } from '../states';
+import { Item, useItemRemove } from '../states';
 import { useItemUpdateFrequency } from '../states';
 
 type Props = Item;
 
 const StyledItem = styled.li`
   width: 300px;
-  transition: all 0.3s ease-in-out;
 `;
 
 const StyledActions = styled.div`
@@ -42,6 +41,8 @@ export default ({ id, content, frequency }: Props) => {
   const [copied, setCopied] = useState(false);
   const updateFrequency = useItemUpdateFrequency();
 
+  const removeItem = useItemRemove();
+
   const copy = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
@@ -57,7 +58,7 @@ export default ({ id, content, frequency }: Props) => {
     {
       isOver
         ? <StyledActions>
-          <span>删除</span>
+          <span onClick={() => window.confirm(`确认删除短语“${content}”？`) && removeItem(id)}>删除</span>
           <span>编辑</span>
           <span className={`copy-text ${copied ? 'copied' : ''}`} onClick={copied ? undefined : copy} data-clipboard-text={content}>{copied ? '复制成功' : '点击复制'}</span>
         </StyledActions>
