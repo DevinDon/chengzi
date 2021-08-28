@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Category } from '../data';
+import type { Category } from '../states';
 import CategoryComponent from './category';
 
 interface Props {
@@ -19,6 +19,6 @@ export default ({ categories }: Props) => <StyledDashboard>
   {
     categories
       .sort((a, b) => a.order - b.order)
-      .map(category => <CategoryComponent {...category} />)
+      .map(category => <CategoryComponent key={category.id} {...category} />)
   }
 </StyledDashboard>;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Item } from '../data';
+import { Item, updateItemFrequency } from '../states';
 
 type Props = Item;
 
@@ -20,13 +20,14 @@ const StyledItem = styled.li`
   }
 `;
 
-export default ({ frequency, content }: Props) => {
+export default ({ id, content, frequency }: Props) => {
 
   const [copied, setCopied] = useState(false);
 
   const copy = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
+    updateItemFrequency({ id, content, frequency });
   };
 
   return <StyledItem className={`siimple-list-item ${copied ? 'copied' : ''}`} data-clipboard-text={content} onClick={copied ? undefined : copy}>

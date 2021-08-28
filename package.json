@@ -19,6 +19,7 @@
     "regenerator-runtime": "0.13.7",
     "siimple": "^3.3.1",
     "styled-components": "5.2.1",
+    "tele-state": "^1.0.15",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

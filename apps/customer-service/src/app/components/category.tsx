@@ -1,20 +1,20 @@
 import styled from 'styled-components';
-import { Category } from '../data';
+import type { Category } from '../states';
 import ItemComponent from './item';
 
 type Props = Category;
 
 const StyledList = styled.ul`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-margin: 0 1rem;
-padding: 0;
+  margin: 0 1rem;
+  padding: 0;
 `;
 
 const StyledHeading = styled.h3`
-width: 100%;
-text-align: center;
+  width: 100%;
+  text-align: center;
 `;
 
 export default ({ name, items }: Props) => <div>
@@ -23,7 +23,7 @@ export default ({ name, items }: Props) => <div>
     {
       items
         .sort((a, b) => b.frequency - a.frequency)
-        .map(item => <ItemComponent key={item.content} {...item} />)
+        .map(item => <ItemComponent key={item.id} {...item} />)
     }
   </StyledList>
 </div>;
