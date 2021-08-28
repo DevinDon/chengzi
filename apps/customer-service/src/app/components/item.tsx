@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Item, useItemRemove } from '../states';
+import { Item, useItemRemove, useItemUpdate } from '../states';
 import { useItemUpdateFrequency } from '../states';
+import EditorComponent from './editor';
 
 type Props = Item;
 
@@ -35,17 +36,19 @@ const StyledActions = styled.div`
   }
 `;
 
-export default ({ id, content, frequency }: Props) => {
+export default ({ id, content, category, frequency }: Props) => {
 
   const [isOver, setIsOver] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const updateFrequency = useItemUpdateFrequency();
+  const [isCopied, setIsCopied] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
+  const updateFrequency = useItemUpdateFrequency();
   const removeItem = useItemRemove();
+  const updateItem = useItemUpdate();
 
   const copy = () => {
-    setCopied(true);
-    setTimeout(() => setCopied(false), 3000);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 3000);
     updateFrequency(id);
   };
 
@@ -59,8 +62,8 @@ export default ({ id, content, frequency }: Props) => {
       isOver
         ? <StyledActions>
           <span onClick={() => window.confirm(`确认删除短语“${content}”？`) && removeItem(id)}>删除</span>
-          <span>编辑</span>
-          <span className={`copy-text ${copied ? 'copied' : ''}`} onClick={copied ? undefined : copy} data-clipboard-text={content}>{copied ? '复制成功' : '点击复制'}</span>
+          <span onClick={() => setIsEditing(true)}>编辑</span>
+          <span className={`copy-text ${isCopied ? 'copied' : ''}`} onClick={isCopied ? undefined : copy} data-clipboard-text={content}>{isCopied ? '复制成功' : '点击复制'}</span>
         </StyledActions>
         : <>
           <span className="content">{content}</span>
@@ -68,6 +71,20 @@ export default ({ id, content, frequency }: Props) => {
             {frequency > 999 ? Math.trunc(frequency / 1000) + 'k+' : frequency}
           </span>
         </>
+    }
+    {
+      isEditing && <EditorComponent
+        content={content}
+        confirm={(text: string) => {
+          updateItem({ id, category, frequency, content: text });
+          setIsEditing(false);
+          setIsOver(false);
+        }}
+        cancel={() => {
+          setIsEditing(false);
+          setIsOver(false);
+        }}
+      />
     }
   </StyledItem>;
 };

@@ -10,17 +10,17 @@ const useItemser = ({ initial = loadItems() }) => {
   }, [items]);
   // 2️⃣ Wrap your updaters with useCallback or use dispatch from useReducer
   const insert = useCallback(
-    newItem =>
+    (newItem: Item) =>
       setItems(prev => [...prev, newItem]),
     [],
   );
   const remove = useCallback(
-    id =>
+    (id: Item['id']) =>
       setItems(prev => prev.filter(item => item.id !== id)),
     [],
   );
   const update = useCallback(
-    newItem =>
+    (newItem: Item) =>
       setItems(prev => [...prev.filter(item => item.id !== newItem.id), newItem]),
     [],
   );
