@@ -1,12 +1,12 @@
 import ClipboardJS from 'clipboard';
 import 'normalize.css/normalize.css';
-import { StrictMode } from 'react';
+import { StrictMode, useState } from 'react';
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import 'siimple/dist/siimple.min.css';
 import App from './app/app';
 
-new ClipboardJS('.siimple-list-item');
+const clipboard = new ClipboardJS('.siimple-list-item');
 
 ReactDOM.render(
   <StrictMode>
