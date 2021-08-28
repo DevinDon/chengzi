@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Item, useItemRemove, useItemUpdate } from '../states';
 import { useItemUpdateFrequency } from '../states';
 import EditorComponent from './editor';
+import ConfirmComponent from './confirm';
 
 type Props = Item;
 
@@ -41,6 +42,7 @@ export default ({ id, content, category, frequency }: Props) => {
   const [isOver, setIsOver] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const updateFrequency = useItemUpdateFrequency();
   const removeItem = useItemRemove();
@@ -61,7 +63,7 @@ export default ({ id, content, category, frequency }: Props) => {
     {
       isOver
         ? <StyledActions>
-          <span onClick={() => window.confirm(`确认删除短语“${content}”？`) && removeItem(id)}>删除</span>
+          <span onClick={() => setIsDeleting(true)}>删除</span>
           <span onClick={() => setIsEditing(true)}>编辑</span>
           <span className={`copy-text ${isCopied ? 'copied' : ''}`} onClick={isCopied ? undefined : copy} data-clipboard-text={content}>{isCopied ? '复制成功' : '点击复制'}</span>
         </StyledActions>
@@ -79,10 +81,28 @@ export default ({ id, content, category, frequency }: Props) => {
           updateItem({ id, category, frequency, content: text });
           setIsEditing(false);
           setIsOver(false);
+          setIsDeleting(false);
         }}
         cancel={() => {
           setIsEditing(false);
           setIsOver(false);
+          setIsDeleting(false);
+        }}
+      />
+    }
+    {
+      isDeleting && <ConfirmComponent
+        content={content}
+        confirm={() => {
+          removeItem(id);
+          setIsEditing(false);
+          setIsOver(false);
+          setIsDeleting(false);
+        }}
+        cancel={() => {
+          setIsEditing(false);
+          setIsOver(false);
+          setIsDeleting(false);
         }}
       />
     }
