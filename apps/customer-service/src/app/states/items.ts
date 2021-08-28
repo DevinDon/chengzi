@@ -1,10 +1,13 @@
 import constate from 'constate';
-import { useCallback, useState } from 'react';
-import { Item, items } from './data';
+import { useCallback, useEffect, useState } from 'react';
+import { Item, loadItems, saveItems } from './data';
 
 // 1️⃣ Create a custom hook that receives props
-const useItemser = ({ initial = items }) => {
+const useItemser = ({ initial = loadItems() }) => {
   const [items, setItems] = useState(initial);
+  useEffect(() => {
+    saveItems(items);
+  }, [items]);
   // 2️⃣ Wrap your updaters with useCallback or use dispatch from useReducer
   const insert = useCallback(
     newItem =>
@@ -44,25 +47,3 @@ export const [ItemsProvider, useItems, useItemInsert, useItemRemove, useItemUpda
   value => value.update,
   value => value.updateFrequency,
 );
-
-// function Button() {
-//   // 4️⃣ Use the updater context that will never trigger a re-render
-//   const increment = useIncrement();
-//   return <button onClick={ increment }> +</button>;
-// }
-
-// function Count() {
-//   // 5️⃣ Use the state context in other components
-//   const count = useCount();
-//   return <span>{ count } < /span>;
-// }
-
-// function App() {
-//   // 6️⃣ Wrap your components with Provider passing props to your hook
-//   return (
-//     <CounterProvider initialCount= { 10} >
-//     <Count />
-//     < Button />
-//     </CounterProvider>
-//   );
-// }

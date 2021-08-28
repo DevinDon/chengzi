@@ -1,3 +1,5 @@
+import { debounce } from '../utils/debounce';
+
 export interface Item {
   id: string;
   frequency: number;
@@ -50,3 +52,27 @@ export const items: Item[] = [
   { id: '18', frequency: 19, content: '你好，我是小美8', category: '结束语' },
   { id: '19', frequency: 1, content: '你好，我是小美9', category: '结束语' },
 ];
+
+const itemsKey = 'customer-service/items';
+
+export const saveItems = debounce(
+  (items: Item[]) => {
+    localStorage.setItem(itemsKey, JSON.stringify(items));
+    console.log('save items');
+  },
+);
+
+export const loadItems = (): Item[] =>
+  JSON.parse(localStorage.getItem(itemsKey) || 'undefined') || items;
+
+const categoriesKey = 'customer-service/categories';
+
+export const saveCategories = debounce(
+  (categories: Category[]) => {
+    localStorage.setItem(categoriesKey, JSON.stringify(categories));
+    console.log('save categories');
+  },
+);
+
+export const loadCategories = (): Category[] =>
+  JSON.parse(localStorage.getItem(categoriesKey) || 'undefined') || categories;

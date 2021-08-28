@@ -1,10 +1,13 @@
 import constate from 'constate';
-import { useCallback, useState } from 'react';
-import { categories } from './data';
+import { useCallback, useEffect, useState } from 'react';
+import { loadCategories, saveCategories } from './data';
 
 // 1️⃣ Create a custom hook that receives props
-const useCategorieser = ({ initial = categories }) => {
+const useCategorieser = ({ initial = loadCategories() }) => {
   const [categories, setCategories] = useState(initial);
+  useEffect(() => {
+    saveCategories(categories);
+  }, [categories]);
   // 2️⃣ Wrap your updaters with useCallback or use dispatch from useReducer
   const insert = useCallback(
     newCategory =>
@@ -32,25 +35,3 @@ export const [CategoriesProvider, useCategories, useCategoryInsert, useCategoryR
   value => value.remove,
   value => value.update,
 );
-
-// function Button() {
-//   // 4️⃣ Use the updater context that will never trigger a re-render
-//   const increment = useIncrement();
-//   return <button onClick={ increment }> +</button>;
-// }
-
-// function Count() {
-//   // 5️⃣ Use the state context in other components
-//   const count = useCount();
-//   return <span>{ count } < /span>;
-// }
-
-// function App() {
-//   // 6️⃣ Wrap your components with Provider passing props to your hook
-//   return (
-//     <CounterProvider initialCount={10} >
-//     <Count />
-//     < Button />
-//     </CounterProvider>
-//   );
-// }
