@@ -1,3 +1,4 @@
+import { debounce } from '@chengzi-tools/performance';
 import constate from 'constate';
 import { useCallback, useState } from 'react';
 
@@ -6,17 +7,23 @@ export interface Config {
   autoCopy: boolean;
 }
 
+// save & load config
 const configKey = 'order-formatter/config';
 
-const saveConfig = (config: Config) => {
-  localStorage.setItem(configKey, JSON.stringify(config));
-};
+const saveConfig = debounce(
+  (config: Config) => {
+    localStorage.setItem(configKey, JSON.stringify(config));
+  },
+);
 
-const loadConfig = (): Config => {
-  const config = localStorage.getItem(configKey);
-  return config ? JSON.parse(config) : { autoClear: true, autoCopy: true };
-}
+const loadConfig = debounce(
+  (): Config => {
+    const config = localStorage.getItem(configKey);
+    return config ? JSON.parse(config) : { autoClear: true, autoCopy: true };
+  },
+);
 
+// state
 const useConfigurations = ({ initial = loadConfig() }) => {
   const [config, setConfig] = useState(initial);
 

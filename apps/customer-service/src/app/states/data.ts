@@ -1,4 +1,4 @@
-import { debounce } from '../utils/debounce';
+import { debounce } from '@chengzi-tools/performance';
 
 export interface Item {
   id: string;
