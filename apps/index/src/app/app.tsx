@@ -1,9 +1,11 @@
+import { HeadingComponent } from '@chengzi-tools/heading';
 import styled from 'styled-components';
-import CardComponent from './components/card';
-import orderFormatterCover from '../assets/order-formatter-cover.png';
 import customerServiceCover from '../assets/customer-service-cover.png';
+import orderFormatterCover from '../assets/order-formatter-cover.png';
+import CardComponent from './components/card';
 
 const StyledApp = styled.div`
+  padding: 1rem;
 `;
 
 const StyledList = styled.ul`
@@ -14,6 +16,7 @@ const StyledList = styled.ul`
   flex-wrap: wrap;
 
   margin: 2rem 0;
+  padding: 0;
 `;
 
 const StyledImage = styled.img`
@@ -22,6 +25,8 @@ const StyledImage = styled.img`
 `;
 
 export default () => <StyledApp>
+  <HeadingComponent title="小橙子的工具箱" />
+
   <StyledList>
     <CardComponent title="客服话术">
       <a href="./customer-service/">

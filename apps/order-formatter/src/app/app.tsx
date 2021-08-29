@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { useEffect, useState } from 'react';
+import { HeadingComponent } from '@chengzi-tools/heading';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import InputComponent from './components/input';
 import OutputComponent from './components/output';
@@ -86,8 +86,7 @@ export default () => {
   }, [shouldShowToast]);
 
   return <StyledApp>
-    <h1 className="siimple-h1">订单格式化工具</h1>
-    <h2 className="siimple-h2 siimple--color-warning">小橙子专属</h2>
+    <HeadingComponent title="订单格式化工具" />
 
     <StyledTwoLine>
       <InputComponent {...{ input, setInput }} />
