@@ -41,6 +41,9 @@
     "order-formatter-e2e": {
       "tags": [],
       "implicitDependencies": ["order-formatter"]
+    },
+    "performance": {
+      "tags": []
     }
   }
 }
