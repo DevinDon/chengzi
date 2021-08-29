@@ -42,7 +42,7 @@ export default () => <StyledApp>
     </CardComponent>
 
     <CardComponent title="正在施工中">
-      <StyledImage src={workingCover} alt="新功能正在施工中" title="新功能正在施工中" />
+      <StyledImage src={workingCover} alt="新功能正在施工中" title="新功能正在施工中" style={{ cursor: 'not-allowed' }} />
     </CardComponent>
   </StyledList>
 </StyledApp>;
