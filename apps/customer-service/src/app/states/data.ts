@@ -26,31 +26,25 @@ export const categories: Category[] = [
     order: 3,
   },
   {
-    name: '结束语',
+    name: '表达歉意',
     order: 4,
+  },
+  {
+    name: '结束语',
+    order: 5,
   },
 ];
 
 export const items: Item[] = [
-  { id: '1', frequency: 10, content: '你好，我是小美1', category: '问候语' },
-  { id: '2', frequency: 123, content: '你好，我是小美2', category: '问候语' },
-  { id: '3', frequency: 0, content: '你好，我是小美3', category: '问候语' },
-  { id: '4', frequency: 1999, content: '你好，我是小美4', category: '问候语' },
-  { id: '5', frequency: 2, content: '你好，我是小美5', category: '问候语' },
-  { id: '6', frequency: 10, content: '你好，我是小美1', category: '询问问题' },
-  { id: '7', frequency: 123, content: '你好，我是小美2', category: '询问问题' },
-  { id: '8', frequency: 0, content: '你好，我是小美3', category: '询问问题' },
-  { id: '9', frequency: 1999, content: '你好，我是小美4', category: '询问问题' },
-  { id: '10', frequency: 2, content: '你好，我是小美5', category: '询问问题' },
-  { id: '11', frequency: 10, content: '你好，我是小美1', category: '处理问题' },
-  { id: '12', frequency: 123, content: '你好，我是小美2', category: '处理问题' },
-  { id: '13', frequency: 0, content: '你好，我是小美3', category: '处理问题' },
-  { id: '14', frequency: 1999, content: '你好，我是小美4', category: '处理问题' },
-  { id: '15', frequency: 2, content: '你好，我是小美5', category: '处理问题' },
-  { id: '16', frequency: 6, content: '你好，我是小美6', category: '结束语' },
-  { id: '17', frequency: 12, content: '你好，我是小美7', category: '结束语' },
-  { id: '18', frequency: 19, content: '你好，我是小美8', category: '结束语' },
-  { id: '19', frequency: 1, content: '你好，我是小美9', category: '结束语' },
+  { id: '1', frequency: 0, content: '亲，您好，小电商家专线，我是追追,很高兴为您服务~', category: '问候语' },
+  { id: '2', frequency: 0, content: '你好，我是小美1', category: '询问问题' },
+  { id: '6', frequency: 0, content: '很高兴帮您解决了问题，请问还有其他可以帮助您的嘛？', category: '询问问题' },
+  { id: '7', frequency: 0, content: '请问您遇到的是哪方面的问题？', category: '询问问题' },
+  { id: '8', frequency: 0, content: '请问还有其他可以帮助您的嘛？', category: '询问问题' },
+  { id: '3', frequency: 0, content: '好的亲，客服已经把问题反馈给了技术部门，请您稍候~', category: '处理问题' },
+  { id: '4', frequency: 0, content: '很抱歉亲，这个问题不在我们的业务范围内，客服无法给您提供建议', category: '表达歉意' },
+  { id: '9', frequency: 0, content: '很抱歉亲，给您带来了不便，请您不要介意', category: '表达歉意' },
+  { id: '5', frequency: 0, content: '亲，感谢您的来访，本次会话到此结束。如果您对追追的服务满意的话，请记得好评哦~', category: '结束语' },
 ];
 
 const itemsKey = 'customer-service/items';
