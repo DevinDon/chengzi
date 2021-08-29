@@ -30,13 +30,13 @@ const useItemser = ({ initial = loadItems() }) => {
         ...prev.filter(item => item.id !== id),
         {
           ...prev.find(item => item.id === id) as Item,
-          frequency: (prev.find(item => item.id === id) as Item).frequency + 1
+          frequency: (prev.find(item => item.id === id) as Item).frequency + 1,
         },
       ]),
     [],
   );
   return { items, insert, remove, update, updateFrequency };
-}
+};
 
 // 3️⃣ Wrap your hook with the constate factory splitting the values
 export const [ItemsProvider, useItems, useItemInsert, useItemRemove, useItemUpdate, useItemUpdateFrequency] = constate(

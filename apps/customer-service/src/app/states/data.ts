@@ -1,4 +1,5 @@
 import { debounce } from '@chengzi-tools/performance';
+import { environment } from '../../environments/environment';
 
 export interface Item {
   id: string;
@@ -46,24 +47,42 @@ export const items: Item[] = [
   { id: '5', frequency: 0, content: '亲，感谢您的来访，本次会话到此结束。如果您对追追的服务满意的话，请记得好评哦~', category: '结束语' },
 ];
 
-const itemsKey = 'customer-service/items';
+const ITEM_KEY = 'customer-service/items';
 
 export const saveItems = debounce(
   (items: Item[]) => {
-    localStorage.setItem(itemsKey, JSON.stringify(items));
+    localStorage.setItem(ITEM_KEY, JSON.stringify(items));
   },
 );
 
 export const loadItems = (): Item[] =>
-  JSON.parse(localStorage.getItem(itemsKey) || 'null') || items;
+  JSON.parse(localStorage.getItem(ITEM_KEY) || 'null') || items;
 
-const categoriesKey = 'customer-service/categories';
+const CATEGORIES_KEY = 'customer-service/categories';
 
 export const saveCategories = debounce(
   (categories: Category[]) => {
-    localStorage.setItem(categoriesKey, JSON.stringify(categories));
+    localStorage.setItem(CATEGORIES_KEY, JSON.stringify(categories));
   },
 );
 
 export const loadCategories = (): Category[] =>
-  JSON.parse(localStorage.getItem(categoriesKey) || 'null') || categories;
+  JSON.parse(localStorage.getItem(CATEGORIES_KEY) || 'null') || categories;
+
+// sync to https://devin.red/customer-service/api/
+export const upload = async () => {
+  await Promise.all([
+    fetch(`${environment.host}/categories`, { method: 'PUT', body: JSON.stringify(loadCategories()) }),
+    // fetch(`${environment.host}/items`, { method: 'PUT', body: JSON.stringify(loadItems()) }),
+  ]).catch(() => false);
+  return true;
+};
+
+export const download = async () => {
+  const categories = await fetch(`${environment.host}/categories`)
+    .then<Category[]>(res => res.json());
+  const items = await fetch(`${environment.host}/items`)
+    .then<Item[]>(res => res.json());
+  // console.log(categories, items);
+  return { categories, items };
+};

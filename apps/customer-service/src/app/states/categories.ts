@@ -25,7 +25,7 @@ const useCategorieser = ({ initial = loadCategories() }) => {
     [],
   );
   return { categories, insert, remove, update };
-}
+};
 
 // 3️⃣ Wrap your hook with the constate factory splitting the values
 export const [CategoriesProvider, useCategories, useCategoryInsert, useCategoryRemove, useCategoryUpdate] = constate(
