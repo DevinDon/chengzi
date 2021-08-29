@@ -9,7 +9,6 @@
   },
   "private": true,
   "dependencies": {
-    "clipboard": "^2.0.8",
     "constate": "^3.3.0",
     "core-js": "^3.6.5",
     "normalize.css": "^8.0.1",

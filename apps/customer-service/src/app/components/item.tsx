@@ -128,7 +128,7 @@ export default ({ id, content, category, frequency }: Props) => {
       <StyledActions className={isOver ? 'hover' : ''}>
         <span onClick={() => setIsDeleting(true)}>删除</span>
         <span onClick={() => setIsEditing(true)}>编辑</span>
-        <span className={`copy-text ${isCopied ? 'copied' : ''}`} onClick={isCopied ? undefined : copy} data-clipboard-text={content}>{isCopied ? '复制成功' : '点击复制'}</span>
+        <span className={isCopied ? 'copied' : ''} onClick={isCopied ? undefined : copy}>{isCopied ? '复制成功' : '点击复制'}</span>
       </StyledActions>
     </StyledItem>
 
