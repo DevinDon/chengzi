@@ -14,7 +14,12 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
         "accessToken": "MGY4ZmY3ZGItNWZmMC00ZjQ4LWIxZDMtM2VlOGI2MWI5MjE2fHJlYWQtd3JpdGU="
       }
     }
@@ -28,19 +33,14 @@
     ]
   },
   "projects": {
-    "chengzi-tools": {
-      "tags": []
-    },
-    "chengzi-tools-e2e": {
-      "tags": [],
-      "implicitDependencies": ["chengzi-tools"]
-    },
     "customer-service": {
       "tags": []
     },
     "customer-service-e2e": {
       "tags": [],
-      "implicitDependencies": ["customer-service"]
+      "implicitDependencies": [
+        "customer-service"
+      ]
     }
   }
 }
