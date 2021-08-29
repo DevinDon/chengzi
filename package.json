@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "build": "nx build customer-service && nx build order-formatter && cp -r dist/apps/* /mnt/config/demo/index/",
+    "build": "nx build customer-service && nx build index && nx build order-formatter && cp -r dist/apps/* /mnt/config/demo/index/",
     "test": "nx test"
   },
   "private": true,

@@ -35,6 +35,13 @@
       "tags": [],
       "implicitDependencies": ["customer-service"]
     },
+    "index": {
+      "tags": []
+    },
+    "index-e2e": {
+      "tags": [],
+      "implicitDependencies": ["index"]
+    },
     "order-formatter": {
       "tags": []
     },
