@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 const StyledFooter = styled.div`
@@ -18,8 +17,6 @@ interface Props {
 }
 
 export default ({ content, confirm, cancel }: Props) => {
-
-  const [text, setText] = useState(content);
 
   return <div className="siimple-modal siimple-modal--small">
     <div className="siimple-modal-content">

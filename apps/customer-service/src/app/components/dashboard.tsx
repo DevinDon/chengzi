@@ -18,7 +18,7 @@ export default () => {
   return <StyledDashboard>
     {
       categories
-        .sort((a, b) => a.order - b.order)
+        .sort((a, b) => a.id - b.id)
         .map(category => <CategoryComponent key={category.name} {...category} />)
     }
   </StyledDashboard>;

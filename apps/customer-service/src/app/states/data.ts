@@ -9,29 +9,29 @@ export interface Item {
 
 export interface Category {
   name: string;
-  order: number;
+  id: number;
 }
 
 export const categories: Category[] = [
   {
+    id: 1,
     name: '问候语',
-    order: 1,
   },
   {
+    id: 2,
     name: '询问问题',
-    order: 2,
   },
   {
+    id: 3,
     name: '处理问题',
-    order: 3,
   },
   {
+    id: 4,
     name: '表达歉意',
-    order: 4,
   },
   {
+    id: 5,
     name: '结束语',
-    order: 5,
   },
 ];
 
