@@ -8,7 +8,9 @@
       "targets": {
         "build": {
           "executor": "@nrwl/web:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/customer-service",
             "index": "apps/customer-service/src/index.html",
@@ -65,12 +67,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/customer-service/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": [
+              "apps/customer-service/**/*.{ts,tsx,js,jsx}"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/customer-service"],
+          "outputs": [
+            "coverage/apps/customer-service"
+          ],
           "options": {
             "jestConfig": "apps/customer-service/jest.config.js",
             "passWithNoTests": true
@@ -98,7 +104,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/customer-service-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/customer-service-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -110,7 +118,9 @@
       "targets": {
         "build": {
           "executor": "@nrwl/web:build",
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "options": {
             "outputPath": "dist/apps/order-formatter",
             "index": "apps/order-formatter/src/index.html",
@@ -123,7 +133,8 @@
             ],
             "styles": [],
             "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/webpack"
+            "webpackConfig": "@nrwl/react/plugins/webpack",
+            "baseHref": "/order-formatter/"
           },
           "configurations": {
             "production": {
@@ -146,8 +157,7 @@
                   "maximumWarning": "500kb",
                   "maximumError": "1mb"
                 }
-              ],
-              "baseHref": "/order-formatter/"
+              ]
             }
           }
         },
@@ -167,12 +177,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/order-formatter/**/*.{ts,tsx,js,jsx}"]
+            "lintFilePatterns": [
+              "apps/order-formatter/**/*.{ts,tsx,js,jsx}"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/order-formatter"],
+          "outputs": [
+            "coverage/apps/order-formatter"
+          ],
           "options": {
             "jestConfig": "apps/order-formatter/jest.config.js",
             "passWithNoTests": true
@@ -200,7 +214,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/order-formatter-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/order-formatter-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -213,12 +229,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/performance/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/performance/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/performance"],
+          "outputs": [
+            "coverage/libs/performance"
+          ],
           "options": {
             "jestConfig": "libs/performance/jest.config.js",
             "passWithNoTests": true
