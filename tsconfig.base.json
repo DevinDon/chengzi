@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@chengzi-tools/heading": ["libs/heading/src/index.ts"],
       "@chengzi-tools/performance": ["libs/performance/src/index.ts"]
     }
   },

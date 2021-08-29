@@ -35,6 +35,9 @@
       "tags": [],
       "implicitDependencies": ["customer-service"]
     },
+    "heading": {
+      "tags": []
+    },
     "index": {
       "tags": []
     },
