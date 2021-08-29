@@ -16,12 +16,10 @@ const saveConfig = debounce(
   },
 );
 
-const loadConfig = debounce(
-  (): Config => {
-    const config = localStorage.getItem(configKey);
-    return config ? JSON.parse(config) : { autoClear: true, autoCopy: true };
-  },
-);
+const loadConfig = (): Config => {
+  const config = localStorage.getItem(configKey);
+  return config ? JSON.parse(config) : { autoClear: true, autoCopy: true };
+};
 
 // state
 const useConfigurations = ({ initial = loadConfig() }) => {
