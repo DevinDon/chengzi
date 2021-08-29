@@ -29,13 +29,13 @@ export default () => <StyledApp>
 
   <StyledList>
     <CardComponent title="客服话术">
-      <a href="./customer-service/">
+      <a href="/customer-service/">
         <StyledImage src={customerServiceCover} alt="点击前往客服话术工具页面" title="点击前往客服话术工具页面" />
       </a>
     </CardComponent>
 
     <CardComponent title="订单格式化">
-      <a href="./order-formatter/">
+      <a href="/order-formatter/">
         <StyledImage src={orderFormatterCover} alt="点击前往订单格式化工具页面" title="点击前往订单格式化工具页面" />
       </a>
     </CardComponent>
