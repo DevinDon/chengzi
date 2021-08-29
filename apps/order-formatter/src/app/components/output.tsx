@@ -3,9 +3,10 @@ import { StyledContainer } from './container';
 
 interface Props {
   output: string;
+  copy: () => void;
 }
 
-export default ({ output }: Props) => {
+export default ({ output, copy }: Props) => {
 
   const { autoCopy } = useConfig();
   const updateAutoCopy = useUpdateAutoCopy();
@@ -15,7 +16,7 @@ export default ({ output }: Props) => {
       className="textarea siimple-label"
       htmlFor="output"
       style={{ cursor: 'pointer' }}
-      onClick={() => output && navigator.clipboard.writeText(output)}
+      onClick={() => copy()}
     >点击此处复制格式化文本</label>
 
     <div className="switch">
@@ -34,6 +35,7 @@ export default ({ output }: Props) => {
       rows={15}
       placeholder="这里会显示已被格式化的文本……"
       value={output}
+      onClick={() => copy()}
     ></textarea>
   </StyledContainer>;
 

@@ -18,7 +18,7 @@ export default ({ input, setInput }: Props) => {
     >在此输入原始文本内容</label>
 
     <div className="switch">
-      <label htmlFor="autoClear" className="siimple-label">自动清空并粘贴</label>
+      <label htmlFor="autoClear" className="siimple-label">自动粘贴</label>
       <div className="siimple-switch">
         <input type="checkbox" id="autoClear" onChange={e => updateAutoClear(e.target.checked)} checked={autoClear} />
         <label htmlFor="autoClear"></label>
