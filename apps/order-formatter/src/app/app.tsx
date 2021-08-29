@@ -86,7 +86,7 @@ export default () => {
   }, [shouldShowToast]);
 
   return <StyledApp>
-    <h1 className="siimple-h1">订单文本格式化工具</h1>
+    <h1 className="siimple-h1">订单格式化工具</h1>
     <h2 className="siimple-h2 siimple--color-warning">小橙子专属</h2>
 
     <StyledTwoLine>
