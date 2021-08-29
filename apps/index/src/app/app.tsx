@@ -2,6 +2,7 @@ import { HeadingComponent } from '@chengzi-tools/heading';
 import styled from 'styled-components';
 import customerServiceCover from '../assets/customer-service-cover.png';
 import orderFormatterCover from '../assets/order-formatter-cover.png';
+import workingCover from '../assets/working-cover.png';
 import CardComponent from './components/card';
 
 const StyledApp = styled.div`
@@ -38,6 +39,10 @@ export default () => <StyledApp>
       <a href="/order-formatter/">
         <StyledImage src={orderFormatterCover} alt="点击前往订单格式化工具页面" title="点击前往订单格式化工具页面" />
       </a>
+    </CardComponent>
+
+    <CardComponent title="正在施工中">
+      <StyledImage src={workingCover} alt="新功能正在施工中" title="新功能正在施工中" />
     </CardComponent>
   </StyledList>
 </StyledApp>;
