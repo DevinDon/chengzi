@@ -9,7 +9,7 @@ ReactDOM.render(
   <StrictMode>
     <CategoriesProvider>
       <ItemsProvider>
-        <App />,
+        <App />
       </ItemsProvider>
     </CategoriesProvider>
   </StrictMode>,
