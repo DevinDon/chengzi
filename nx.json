@@ -28,12 +28,21 @@
     ]
   },
   "projects": {
+    "app-container": {
+      "tags": []
+    },
+    "copyright": {
+      "tags": []
+    },
     "customer-service": {
       "tags": []
     },
     "customer-service-e2e": {
       "tags": [],
       "implicitDependencies": ["customer-service"]
+    },
+    "flex-grow": {
+      "tags": []
     },
     "heading": {
       "tags": []

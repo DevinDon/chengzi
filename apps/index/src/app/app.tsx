@@ -1,13 +1,12 @@
+import { AppContainerComponent } from '@chengzi-tools/app-container';
+import { CopyrightComponent } from '@chengzi-tools/copyright';
+import { FlexGrowComponent } from '@chengzi-tools/flex-grow';
 import { HeadingComponent } from '@chengzi-tools/heading';
 import styled from 'styled-components';
 import customerServiceCover from '../assets/customer-service-cover.png';
 import orderFormatterCover from '../assets/order-formatter-cover.png';
 import workingCover from '../assets/working-cover.png';
 import CardComponent from './components/card';
-
-const StyledApp = styled.div`
-  padding: 1rem;
-`;
 
 const StyledList = styled.ul`
   display: flex;
@@ -25,7 +24,7 @@ const StyledImage = styled.img`
   height: auto;
 `;
 
-export default () => <StyledApp>
+export default () => <AppContainerComponent>
   <HeadingComponent title="小橙子的工具箱" />
 
   <StyledList>
@@ -45,4 +44,8 @@ export default () => <StyledApp>
       <StyledImage src={workingCover} alt="新功能正在施工中" title="新功能正在施工中" style={{ cursor: 'not-allowed' }} />
     </CardComponent>
   </StyledList>
-</StyledApp>;
+
+  <FlexGrowComponent />
+
+  <CopyrightComponent />
+</AppContainerComponent>;
