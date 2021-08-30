@@ -12,6 +12,16 @@ const StyledHeading = styled.div`
 `;
 
 export const HeadingComponent = ({ title, subtitle = '小橙子专属' }: Props) => <StyledHeading>
-  <h1 className="siimple-h1">{title}</h1>
-  <h2 className="siimple-h2 siimple--color-warning">{subtitle}</h2>
+  <div className="siimple-navbar siimple-navbar--fluid">
+    <span className="siimple-navbar-title">{title}</span>
+    <span className="siimple-navbar-subtitle siimple--color-warning">{subtitle}</span>
+    <div className="siimple--float-right">
+      <a
+        className="siimple-navbar-item siimple-link"
+        href="https://github.com/devindon/chengzi-tools"
+        target="_blank"
+        rel="noopener noreferrer"
+      >GitHub</a>
+    </div>
+  </div>
 </StyledHeading>;
