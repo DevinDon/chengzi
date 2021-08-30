@@ -18,7 +18,7 @@ const saveConfig = debounce(
 
 const loadConfig = (): Config => {
   const config = localStorage.getItem(configKey);
-  return config ? JSON.parse(config) : { autoClear: true, autoCopy: true };
+  return config ? JSON.parse(config) : { autoClear: false, autoCopy: false };
 };
 
 // state
@@ -57,4 +57,4 @@ export const [ConfigProvider, useConfig, useUpdateAutoClear, useUpdateAutoCopy] 
   value => value.config,
   value => value.updateAutoClear,
   value => value.updateAutoCopy,
-)
+);
