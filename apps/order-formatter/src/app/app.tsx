@@ -1,17 +1,12 @@
+import { AppContainerComponent } from '@chengzi-tools/app-container';
+import { CopyrightComponent } from '@chengzi-tools/copyright';
+import { FlexGrowComponent } from '@chengzi-tools/flex-grow';
 import { HeadingComponent } from '@chengzi-tools/heading';
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import InputComponent from './components/input';
 import OutputComponent from './components/output';
 import { useConfig } from './states';
-
-const StyledApp = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  padding: 1rem;
-`;
 
 const StyledTwoLine = styled.div`
   display: flex;
@@ -85,7 +80,7 @@ export default () => {
     shouldShowToast && setTimeout(() => setShouldShowToast(false), 3000);
   }, [shouldShowToast]);
 
-  return <StyledApp>
+  return <AppContainerComponent>
     <HeadingComponent title="订单格式化工具" />
 
     <StyledTwoLine>
@@ -94,6 +89,10 @@ export default () => {
     </StyledTwoLine>
 
     <StyledToast style={{ opacity: shouldShowToast ? 1 : 0 }}>复制成功，请按 <kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</StyledToast>
-  </StyledApp>;
+
+    <FlexGrowComponent />
+
+    <CopyrightComponent />
+  </AppContainerComponent>;
 
 };

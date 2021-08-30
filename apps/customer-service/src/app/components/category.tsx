@@ -7,6 +7,8 @@ import ItemComponent from './item';
 
 type Props = Category;
 
+const StyledContainer = styled.div``;
+
 const StyledHeading = styled.h3`
   width: 100%;
   text-align: center;
@@ -16,7 +18,7 @@ const StyledList = styled.ul`
   display: flex;
   flex-direction: column;
 
-  margin: 0 1rem;
+  margin: 0;
   padding: 0;
 `;
 
@@ -31,8 +33,10 @@ export default ({ name }: Props) => {
   const items = useItems();
   const insert = useItemInsert();
 
-  return <div>
-    <StyledHeading className="siimple-h3">{name}</StyledHeading>
+  return <StyledContainer>
+    <StyledHeading className="siimple-h3">
+      <small className="siimple">{name}</small>
+    </StyledHeading>
     <StyledList className="siimple-list siimple-list--hover">
       {
         items
@@ -56,6 +60,6 @@ export default ({ name }: Props) => {
         }}
       />
     }
-  </div>;
+  </StyledContainer>;
 
 };
