@@ -17,7 +17,7 @@ interface Props {
   cancel: () => void;
 }
 
-export default ({ content, confirm, cancel }: Props) => {
+export const EditorComponent = ({ content, confirm, cancel }: Props) => {
 
   const [text, setText] = useState(content);
 
@@ -43,4 +43,6 @@ export default ({ content, confirm, cancel }: Props) => {
     </div>
   </div>;
 
-}
+};
+
+export default EditorComponent;

@@ -4,8 +4,8 @@ import { FlexGrowComponent } from '@chengzi-tools/flex-grow';
 import { HeadingComponent } from '@chengzi-tools/heading';
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import InputComponent from './components/input';
-import OutputComponent from './components/output';
+import { InputComponent } from './components/input';
+import { OutputComponent } from './components/output';
 import { useConfig } from './states';
 
 const StyledTwoLine = styled.div`

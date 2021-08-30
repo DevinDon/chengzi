@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Item, useItemRemove, useItemUpdate, useItemUpdateFrequency } from '../states';
-import ConfirmComponent from './dialog/confirm';
-import EditorComponent from './dialog/editor';
+import { ConfirmComponent } from './dialog/confirm';
+import { EditorComponent } from './dialog/editor';
 
 type Props = Item;
 
@@ -94,7 +94,7 @@ const StyledActions = styled.div`
   }
 `;
 
-export default ({ id, content, category, frequency }: Props) => {
+export const ItemComponent = ({ id, content, category, frequency }: Props) => {
 
   const [isOver, setIsOver] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -167,3 +167,5 @@ export default ({ id, content, category, frequency }: Props) => {
     }
   </>;
 };
+
+export default ItemComponent;

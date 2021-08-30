@@ -2,8 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import type { Category } from '../states';
 import { useItemInsert, useItems } from '../states/items';
-import EditorComponent from './dialog/editor';
-import ItemComponent from './item';
+import { EditorComponent } from './dialog/editor';
+import { ItemComponent } from './item';
 
 type Props = Category;
 
@@ -26,7 +26,7 @@ const StyledItemInsert = styled.li`
   width: 300px;
 `;
 
-export default ({ name }: Props) => {
+export const CategoryComponent = ({ name }: Props) => {
 
   const [isInserting, setIsInserting] = useState(false);
 
@@ -63,3 +63,5 @@ export default ({ name }: Props) => {
   </StyledContainer>;
 
 };
+
+export default CategoryComponent;

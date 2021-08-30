@@ -8,5 +8,4 @@ export const StyledContainer = styled.div`
   min-width: 300px;
   max-width: 500px;
   width: calc(50% - 2rem);
-
 `;

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import customerServiceCover from '../assets/customer-service-cover.png';
 import orderFormatterCover from '../assets/order-formatter-cover.png';
 import workingCover from '../assets/working-cover.png';
-import CardComponent from './components/card';
+import { CardComponent } from './components/card';
 
 const StyledList = styled.ul`
   display: flex;

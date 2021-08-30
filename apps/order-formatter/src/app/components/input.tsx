@@ -6,7 +6,7 @@ interface Props {
   setInput: (input: string) => void;
 }
 
-export default ({ input, setInput }: Props) => {
+export const InputComponent = ({ input, setInput }: Props) => {
 
   const { autoClear } = useConfig();
   const updateAutoClear = useUpdateAutoClear();
@@ -38,3 +38,5 @@ export default ({ input, setInput }: Props) => {
   </StyledContainer>;
 
 };
+
+export default InputComponent;

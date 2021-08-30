@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Category, useCategories } from '../states';
-import CategoryComponent from './category';
+import { CategoryComponent } from './category';
 
 const StyledDashboard = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ const StyledDashboard = styled.div`
   width: 100%;
 `;
 
-export default () => {
+export const DashboardComponent = () => {
 
   const categories: Category[] = useCategories();
 
@@ -23,3 +23,5 @@ export default () => {
     }
   </StyledDashboard>;
 };
+
+export default DashboardComponent;

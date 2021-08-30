@@ -6,7 +6,7 @@ interface Props {
   copy: () => void;
 }
 
-export default ({ output, copy }: Props) => {
+export const OutputComponent = ({ output, copy }: Props) => {
 
   const { autoCopy } = useConfig();
   const updateAutoCopy = useUpdateAutoCopy();
@@ -40,3 +40,5 @@ export default ({ output, copy }: Props) => {
   </StyledContainer>;
 
 };
+
+export default OutputComponent;

@@ -16,7 +16,7 @@ interface Props {
   cancel: () => void;
 }
 
-export default ({ content, confirm, cancel }: Props) => {
+export const ConfirmComponent = ({ content, confirm, cancel }: Props) => {
 
   return <div className="siimple-modal siimple-modal--small">
     <div className="siimple-modal-content">
@@ -34,4 +34,6 @@ export default ({ content, confirm, cancel }: Props) => {
     </div>
   </div>;
 
-}
+};
+
+export default ConfirmComponent;
