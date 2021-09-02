@@ -2,6 +2,7 @@ import { CSSProperties, ReactNode } from 'react';
 import styled from 'styled-components';
 
 export interface Props {
+  className?: string;
   style?: CSSProperties;
   children: ReactNode;
 }
@@ -14,5 +15,5 @@ const StyledAppContainer = styled.div`
   min-height: calc(100vh - 2rem);
 `;
 
-export const AppContainerComponent = ({ style, children }: Props) =>
-  <StyledAppContainer style={style}>{children}</StyledAppContainer>;
+export const AppContainerComponent = ({ className, style, children }: Props) =>
+  <StyledAppContainer {...{ className, style }}>{children}</StyledAppContainer>;
