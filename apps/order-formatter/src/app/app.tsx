@@ -59,8 +59,7 @@ export default () => {
     .replace(/:\s+/g, '：')
     .replace(/:$/gm, '：')
     .replace(/\n/g, ' ')
-    .replace(/\s(.{3,6}：)/g, '\n$1')
-    .replace(/\s订单号：/, '\n订单号：')
+    .replace(/\s(.{3,6}：)/g, '\r\n$1')
     .replace(/^\s+/gm, '')
     .replace(/\s+$/gm, '')
     .trim();
