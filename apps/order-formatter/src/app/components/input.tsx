@@ -4,9 +4,10 @@ import { StyledContainer } from './container';
 interface Props {
   input: string;
   setInput: (input: string) => void;
+  paste: () => void;
 }
 
-export const InputComponent = ({ input, setInput }: Props) => {
+export const InputComponent = ({ input, setInput, paste }: Props) => {
 
   const { autoClear } = useConfig();
   const updateAutoClear = useUpdateAutoClear();
@@ -33,7 +34,7 @@ export const InputComponent = ({ input, setInput }: Props) => {
       placeholder="在这里输入需要被格式化的原始文本……"
       onInput={e => setInput(e.currentTarget.value)}
       value={input}
-      onClick={async e => autoClear ? setInput(await navigator.clipboard.readText()) : e.currentTarget.select()}
+      onClick={e => autoClear ? paste() : e.currentTarget.select()}
     ></textarea>
   </StyledContainer>;
 
