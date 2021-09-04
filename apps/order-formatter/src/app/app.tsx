@@ -26,7 +26,6 @@ const StyledToast = styled.div`
   margin: 0;
   padding: 1rem;
   border-radius: 4px;
-  background-color: #3498db;
   color: #ecf0f1;
   box-shadow: 3px 0 8px -4px black;
 
@@ -39,28 +38,45 @@ const StyledToast = styled.div`
   z-index: 2;
 `;
 
+const StyledSuccessToast = styled(StyledToast)`
+  background-color: #3498db;
+`;
+
+const StyledFailedToast = styled(StyledToast)`
+  background-color: #e74c3c;
+`;
+
 export default () => {
 
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [shouldShowToast, setShouldShowToast] = useState(false);
+  const [shouldShowFailedToast, setShouldShowFailedToast] = useState(false);
   const { autoCopy } = useConfig();
 
   const copy = useCallback(
     () => {
       if (!output) { return; }
-      navigator.clipboard.writeText(output);
-      setShouldShowToast(true);
+      navigator.clipboard
+        .writeText(output)
+        .then(() => setShouldShowToast(true))
+        .catch(() => setShouldShowFailedToast(true));
     },
     [output],
   );
+
+  const paste = () => {
+    navigator.clipboard
+      .readText()
+      .then(text => setInput(text))
+      .catch(() => setShouldShowFailedToast(true));
+  };
 
   const formatOrder = (order: string) => order
     .replace(/:\s+/g, '：')
     .replace(/:$/gm, '：')
     .replace(/\n/g, ' ')
-    .replace(/\s(.{3,6}：)/g, '\n$1')
-    .replace(/\s订单号：/, '\n订单号：')
+    .replace(/\s(.{3,6}：)/g, '\r\n$1')
     .replace(/^\s+/gm, '')
     .replace(/\s+$/gm, '')
     .trim();
@@ -78,17 +94,19 @@ export default () => {
   // on copied
   useEffect(() => {
     shouldShowToast && setTimeout(() => setShouldShowToast(false), 3000);
-  }, [shouldShowToast]);
+    shouldShowFailedToast && setTimeout(() => setShouldShowFailedToast(false), 3000);
+  }, [shouldShowToast, shouldShowFailedToast]);
 
   return <AppContainerComponent>
     <HeadingComponent title="订单格式化工具" />
 
     <StyledTwoLine>
-      <InputComponent {...{ input, setInput }} />
+      <InputComponent {...{ input, setInput, paste }} />
       <OutputComponent {...{ copy, output }} />
     </StyledTwoLine>
 
-    <StyledToast style={{ opacity: shouldShowToast ? 1 : 0 }}>复制成功，请按 <kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</StyledToast>
+    <StyledSuccessToast style={{ opacity: shouldShowToast ? 1 : 0 }}>复制成功<br />请按 <kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</StyledSuccessToast>
+    <StyledFailedToast style={{ opacity: shouldShowFailedToast ? 1 : 0 }}>复制失败<br />请检查浏览器是否已开启剪切板权限</StyledFailedToast>
 
     <FlexGrowComponent />
 
