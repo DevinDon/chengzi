@@ -1,11 +1,18 @@
 import { FlexGrowComponent } from '@chengzi-tools/flex-grow';
 import tw from 'tailwind-styled-components';
 import githubIcon from '../assets/github.icon.svg';
+import boxIcon from '../assets/box.icon.svg';
 
 export interface Props {
   title: string;
   subtitle?: string;
 }
+
+const StyledLogo = tw.img`
+  w-7 h-7
+  self-center
+  rounded-full
+`;
 
 const StyledHeading = tw.div`
   flex
@@ -30,8 +37,8 @@ const StyledSubtitle = tw.h2`
 `;
 
 const StyledLink = tw.a`
-  w-8
-  h-8
+  w-7 h-7
+  self-center
   rounded-full
   transition
   transform
@@ -40,6 +47,7 @@ const StyledLink = tw.a`
 `;
 
 export const HeadingComponent = ({ title, subtitle = '小橙子专属' }: Props) => <StyledHeading>
+  <StyledLogo src={boxIcon} alt="Icon" />
   <StyledTitle>{title}</StyledTitle>
   <StyledSubtitle>{subtitle}</StyledSubtitle>
   <FlexGrowComponent />

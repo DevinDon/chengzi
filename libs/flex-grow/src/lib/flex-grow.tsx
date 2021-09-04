@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import tw from 'tailwind-styled-components';
 
 export interface Props {
   flexGrow?: number;
 }
 
-const StyledFlexGrow = styled.div`
-  flex-grow: 1;
+const StyledFlexGrow = tw.div`
+  flex-grow
 `;
 
 export const FlexGrowComponent = ({ flexGrow = 1 }: Props) => <StyledFlexGrow style={{ flexGrow }} />;
