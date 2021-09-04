@@ -142,6 +142,27 @@
         }
       }
     },
+    "divider": {
+      "root": "libs/divider",
+      "sourceRoot": "libs/divider/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/divider/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/divider"],
+          "options": {
+            "jestConfig": "libs/divider/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "flex-grow": {
       "root": "libs/flex-grow",
       "sourceRoot": "libs/flex-grow/src",
