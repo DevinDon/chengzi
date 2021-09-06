@@ -422,6 +422,27 @@
           }
         }
       }
+    },
+    "switch": {
+      "root": "libs/switch",
+      "sourceRoot": "libs/switch/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/switch/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/switch"],
+          "options": {
+            "jestConfig": "libs/switch/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

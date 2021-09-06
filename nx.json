@@ -66,6 +66,9 @@
     },
     "performance": {
       "tags": []
+    },
+    "switch": {
+      "tags": []
     }
   }
 }
