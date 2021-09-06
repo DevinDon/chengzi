@@ -9,8 +9,6 @@
   },
   "private": true,
   "dependencies": {
-    "@headlessui/react": "^1.4.1",
-    "@heroicons/react": "^1.0.4",
     "constate": "^3.3.0",
     "core-js": "^3.6.5",
     "normalize.css": "^8.0.1",
@@ -24,6 +22,8 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
+    "@headlessui/react": "^1.4.1",
+    "@heroicons/react": "^1.0.4",
     "@nrwl/cli": "12.8.0",
     "@nrwl/cypress": "12.8.0",
     "@nrwl/eslint-plugin-nx": "12.8.0",
