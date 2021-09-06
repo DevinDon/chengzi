@@ -4,38 +4,40 @@ import { FlexGrowComponent } from '@chengzi-tools/flex-grow';
 import { HeadingComponent } from '@chengzi-tools/heading';
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { InputComponent } from './components/input';
-import { OutputComponent } from './components/output';
-import { useConfig } from './states';
+import tw from 'tailwind-styled-components';
+import TextareaComponent from './components/textarea';
+import { TextareaEventTarget } from './interfaces';
+import { useConfig, useUpdateAutoCopy, useUpdateAutoPaste } from './states';
 
-const StyledTwoLine = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
+const StyledTwoLine = tw.div`
+  flex
+  flex-row
+  justify-around
+  items-center
+  flex-wrap
 
-  margin: 3rem 0;
-  width: 100%;
+  p-4
+  mt-4
+  w-full
+
+  md:space-x-4
 `;
 
-const StyledToast = styled.div`
-  opacity: 0;
-  transition: ease-in-out opacity 300ms;
+const StyledToast = tw(styled.div`left: calc((100vw - 12rem) / 2)`)`
+  p-4
+  rounded
+  text-gray-50
+  shadow
+  w-48
+  text-center
+  fixed
+  z-10
+  bottom-12
 
-  margin: 0;
-  padding: 1rem;
-  border-radius: 4px;
-  color: #ecf0f1;
-  box-shadow: 3px 0 8px -4px black;
+  transition
+  transform
 
-  width: 10rem;
-  text-align: center;
-
-  position: fixed;
-  bottom: 2rem;
-  left: calc((100vw - 10rem - 2rem) / 2);
-  z-index: 2;
+  opacity-0
 `;
 
 const StyledSuccessToast = styled(StyledToast)`
@@ -52,7 +54,18 @@ export default () => {
   const [output, setOutput] = useState('');
   const [shouldShowToast, setShouldShowToast] = useState(false);
   const [shouldShowFailedToast, setShouldShowFailedToast] = useState(false);
-  const { autoCopy } = useConfig();
+  const { autoPaste, autoCopy } = useConfig();
+  const updateAutoPaste = useUpdateAutoPaste();
+  const updateAutoCopy = useUpdateAutoCopy();
+
+  const paste = (value: boolean, target: TextareaEventTarget) => {
+    value
+      ? navigator.clipboard
+        .readText()
+        .then(setInput)
+        .catch(() => setShouldShowFailedToast(true))
+      : target.select();
+  };
 
   const copy = useCallback(
     () => {
@@ -64,13 +77,6 @@ export default () => {
     },
     [output],
   );
-
-  const paste = () => {
-    navigator.clipboard
-      .readText()
-      .then(text => setInput(text))
-      .catch(() => setShouldShowFailedToast(true));
-  };
 
   const formatOrder = (order: string) => order
     .replace(/:\s+/g, '：')
@@ -101,8 +107,27 @@ export default () => {
     <HeadingComponent title="订单格式化工具" />
 
     <StyledTwoLine>
-      <InputComponent {...{ input, setInput, paste }} />
-      <OutputComponent {...{ copy, output }} />
+      <TextareaComponent
+        title="在此输入原始文本内容"
+        content={input}
+        setContent={setInput}
+        placeholder="请输入原始文本"
+        switchTitle="自动粘贴"
+        switchValue={autoPaste}
+        setSwitchValue={updateAutoPaste}
+        onClick={paste}
+      />
+      <TextareaComponent
+        disabled={true}
+        title="点此文本框复制输出内容"
+        content={output}
+        setContent={setOutput}
+        placeholder="这里会显示格式化后的文本内容"
+        switchTitle="自动复制"
+        switchValue={autoCopy}
+        setSwitchValue={updateAutoCopy}
+        onClick={copy}
+      />
     </StyledTwoLine>
 
     <StyledSuccessToast style={{ opacity: shouldShowToast ? 1 : 0 }}>复制成功<br />请按 <kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</StyledSuccessToast>

@@ -3,7 +3,7 @@ import constate from 'constate';
 import { useCallback, useState } from 'react';
 
 export interface Config {
-  autoClear: boolean;
+  autoPaste: boolean;
   autoCopy: boolean;
 }
 
@@ -18,17 +18,17 @@ const saveConfig = debounce(
 
 const loadConfig = (): Config => {
   const config = localStorage.getItem(configKey);
-  return config ? JSON.parse(config) : { autoClear: false, autoCopy: false };
+  return config ? JSON.parse(config) : { autoPaste: false, autoCopy: false };
 };
 
 // state
 const useConfigurations = ({ initial = loadConfig() }) => {
   const [config, setConfig] = useState(initial);
 
-  const updateAutoClear = useCallback(
-    (autoClear: boolean) => setConfig(
+  const updateAutoPaste = useCallback(
+    (autoPaste: boolean) => setConfig(
       prev => {
-        const newConfig = { ...prev, autoClear };
+        const newConfig = { ...prev, autoPaste };
         setConfig(newConfig);
         saveConfig(newConfig);
         return prev;
@@ -49,12 +49,12 @@ const useConfigurations = ({ initial = loadConfig() }) => {
     [],
   );
 
-  return { config, updateAutoClear, updateAutoCopy };
+  return { config, updateAutoPaste, updateAutoCopy };
 };
 
-export const [ConfigProvider, useConfig, useUpdateAutoClear, useUpdateAutoCopy] = constate(
+export const [ConfigProvider, useConfig, useUpdateAutoPaste, useUpdateAutoCopy] = constate(
   useConfigurations,
   value => value.config,
-  value => value.updateAutoClear,
+  value => value.updateAutoPaste,
   value => value.updateAutoCopy,
 );
