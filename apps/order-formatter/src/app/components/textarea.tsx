@@ -64,8 +64,7 @@ export const TextareaComponent = ({
       disabled={disabled}
       name={id}
       id={id}
-      cols={30}
-      rows={10}
+      rows={20}
       placeholder={placeholder}
       value={content}
       onChange={e => setContent(e.target.value)}

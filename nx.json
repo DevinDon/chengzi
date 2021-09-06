@@ -57,6 +57,9 @@
       "tags": [],
       "implicitDependencies": ["index"]
     },
+    "notification": {
+      "tags": []
+    },
     "order-formatter": {
       "tags": []
     },

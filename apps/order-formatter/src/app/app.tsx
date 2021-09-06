@@ -2,8 +2,8 @@ import { AppContainerComponent } from '@chengzi-tools/app-container';
 import { CopyrightComponent } from '@chengzi-tools/copyright';
 import { FlexGrowComponent } from '@chengzi-tools/flex-grow';
 import { HeadingComponent } from '@chengzi-tools/heading';
+import { FailedNotificationComponent, SucceedNotificationComponent } from '@chengzi-tools/notification';
 import { useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 import TextareaComponent from './components/textarea';
 import { TextareaEventTarget } from './interfaces';
@@ -21,31 +21,6 @@ const StyledTwoLine = tw.div`
   w-full
 
   md:space-x-4
-`;
-
-const StyledToast = tw(styled.div`left: calc((100vw - 12rem) / 2)`)`
-  p-4
-  rounded
-  text-gray-50
-  shadow
-  w-48
-  text-center
-  fixed
-  z-10
-  bottom-12
-
-  transition
-  transform
-
-  opacity-0
-`;
-
-const StyledSuccessToast = styled(StyledToast)`
-  background-color: #3498db;
-`;
-
-const StyledFailedToast = styled(StyledToast)`
-  background-color: #e74c3c;
 `;
 
 export default () => {
@@ -130,8 +105,8 @@ export default () => {
       />
     </StyledTwoLine>
 
-    <StyledSuccessToast style={{ opacity: shouldShowToast ? 1 : 0 }}>复制成功<br />请按 <kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</StyledSuccessToast>
-    <StyledFailedToast style={{ opacity: shouldShowFailedToast ? 1 : 0 }}>复制失败<br />请检查浏览器是否已开启剪切板权限</StyledFailedToast>
+    <SucceedNotificationComponent isVisable={shouldShowToast} setIsVisable={setShouldShowToast} title="复制成功" message={<>请按 <kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</>} />
+    <FailedNotificationComponent isVisable={shouldShowFailedToast} setIsVisable={setShouldShowFailedToast} title="复制失败" message={<>请检查浏览器是否已开启剪切板权限</>} />
 
     <FlexGrowComponent />
 
