@@ -1,27 +1,61 @@
-import styled from 'styled-components';
+import { FlexGrowComponent } from '@chengzi-tools/flex-grow';
+import tw from 'tailwind-styled-components';
+import githubIcon from '../assets/github.icon.svg';
+import boxIcon from '../assets/box.icon.svg';
 
 export interface Props {
   title: string;
   subtitle?: string;
 }
 
-const StyledHeading = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const StyledLogo = tw.img`
+  w-7 h-7
+  self-center
+  rounded-full
+`;
+
+const StyledHeading = tw.div`
+  flex
+  flex-row
+  justify-between
+  items-end
+  space-x-4
+
+  w-full
+  shadow
+  p-4
+`;
+
+const StyledTitle = tw.h1`
+  font-bold
+  text-2xl
+`;
+
+const StyledSubtitle = tw.h2`
+  text-base
+  text-yellow-500
+`;
+
+const StyledLink = tw.a`
+  w-7 h-7
+  self-center
+  rounded-full
+  transition
+  transform
+  hover:scale-110
+  hover:shadow
 `;
 
 export const HeadingComponent = ({ title, subtitle = '小橙子专属' }: Props) => <StyledHeading>
-  <div className="siimple-navbar siimple-navbar--fluid">
-    <span className="siimple-navbar-title">{title}</span>
-    <span className="siimple-navbar-subtitle siimple--color-warning">{subtitle}</span>
-    <div className="siimple--float-right">
-      <a
-        className="siimple-navbar-item siimple-link"
-        href="https://github.com/devindon/chengzi-tools"
-        target="_blank"
-        rel="noopener noreferrer"
-      >GitHub</a>
-    </div>
-  </div>
+  <StyledLogo src={boxIcon} alt="Icon" />
+  <StyledTitle>{title}</StyledTitle>
+  <StyledSubtitle>{subtitle}</StyledSubtitle>
+  <FlexGrowComponent />
+  <StyledLink
+    href="https://github.com/devindon/chengzi-tools"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <img src={githubIcon} alt="GitHub Icon" />
+  </StyledLink>
 </StyledHeading>;

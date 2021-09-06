@@ -1,5 +1,5 @@
 import { CSSProperties, ReactNode } from 'react';
-import styled from 'styled-components';
+import tw from 'tailwind-styled-components';
 
 export interface Props {
   className?: string;
@@ -7,12 +7,10 @@ export interface Props {
   children: ReactNode;
 }
 
-const StyledAppContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  padding: 1rem;
-  min-height: calc(100vh - 2rem);
+const StyledAppContainer = tw.div`
+  flex
+  flex-col
+  min-h-screen
 `;
 
 export const AppContainerComponent = ({ className, style, children }: Props) =>

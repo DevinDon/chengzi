@@ -1,14 +1,14 @@
-import styled from 'styled-components';
+import tw from 'tailwind-styled-components';
 
-const StyledCopyright = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  padding: 1rem;
+const StyledCopyright = tw.div`
+  flex
+  flex-col
+  justify-center
+  items-center
+  p-4
+  text-sm
 `;
 
-export const CopyrightComponent = () => <StyledCopyright className="siimple-footer siimple-footer--light">
-  <p>版权所有 © <strong>小橙子</strong> 2021+</p>
+export const CopyrightComponent = () => <StyledCopyright>
+  <p>版权所有 <strong>小橙子</strong><sup>©</sup> 2021+</p>
 </StyledCopyright>;

@@ -142,6 +142,27 @@
         }
       }
     },
+    "divider": {
+      "root": "libs/divider",
+      "sourceRoot": "libs/divider/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/divider/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/divider"],
+          "options": {
+            "jestConfig": "libs/divider/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "flex-grow": {
       "root": "libs/flex-grow",
       "sourceRoot": "libs/flex-grow/src",
@@ -282,6 +303,27 @@
         }
       }
     },
+    "notification": {
+      "root": "libs/notification",
+      "sourceRoot": "libs/notification/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/notification/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/notification"],
+          "options": {
+            "jestConfig": "libs/notification/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "order-formatter": {
       "root": "apps/order-formatter",
       "sourceRoot": "apps/order-formatter/src",
@@ -397,6 +439,27 @@
           "outputs": ["coverage/libs/performance"],
           "options": {
             "jestConfig": "libs/performance/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "switch": {
+      "root": "libs/switch",
+      "sourceRoot": "libs/switch/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/switch/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/switch"],
+          "options": {
+            "jestConfig": "libs/switch/jest.config.js",
             "passWithNoTests": true
           }
         }

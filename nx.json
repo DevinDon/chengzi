@@ -41,6 +41,9 @@
       "tags": [],
       "implicitDependencies": ["customer-service"]
     },
+    "divider": {
+      "tags": []
+    },
     "flex-grow": {
       "tags": []
     },
@@ -54,6 +57,9 @@
       "tags": [],
       "implicitDependencies": ["index"]
     },
+    "notification": {
+      "tags": []
+    },
     "order-formatter": {
       "tags": []
     },
@@ -62,6 +68,9 @@
       "implicitDependencies": ["order-formatter"]
     },
     "performance": {
+      "tags": []
+    },
+    "switch": {
       "tags": []
     }
   }
