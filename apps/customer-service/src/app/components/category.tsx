@@ -2,6 +2,7 @@ import tw from 'tailwind-styled-components';
 import type { Category } from '../states';
 import { useItems } from '../states/items';
 import { ItemComponent, StyledItem } from './item';
+import { DocumentAddIcon } from '@heroicons/react/outline';
 
 type Props = Category;
 
@@ -22,8 +23,7 @@ const StyledHeading = tw.h3`
 `;
 
 const StyledList = tw.ul`
-  flex
-  flex-col
+  flex flex-col
   space-y-px
 `;
 
@@ -41,7 +41,8 @@ export const CategoryComponent = ({ name }: Props) => {
           .map(item => <ItemComponent key={item.id} {...item} />)
       }
       <StyledItem className="cursor-pointer">
-        <span role="img" aria-label="add">➕</span> 点击添加常用短语
+        <DocumentAddIcon className="w-5 h-5" />
+        <span className="ml-1">点击添加常用短语</span>
       </StyledItem>
     </StyledList>
   </StyledContainer>;

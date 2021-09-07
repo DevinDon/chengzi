@@ -1,14 +1,14 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
-import { Item } from '../states';
+import { MenuContext } from '../constants/context-menu';
+import { Item, useItemFrequencyIncrease } from '../states';
 
 type Props = Item;
 
 // list item
 export const StyledItem = tw.li`
-  flex flex-row
-  justify-center items-center
+  flex flex-row justify-center items-center
   relative
   overflow-hidden
   w-full
@@ -68,14 +68,18 @@ const StyledItemCopied = tw(StyledItemBasedContainer)`
 
 export const ItemComponent = ({ id, content, category, frequency }: Props) => {
 
+  const { openContextMenu } = useContext(MenuContext);
+  const increase = useItemFrequencyIncrease();
+
   const [isCopied, setIsCopied] = useState(false);
   const copy = useCallback(() => {
     if (isCopied === true) { return; }
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2500);
-  }, [isCopied]);
+    increase(id);
+  }, [isCopied, id, increase]);
 
-  return <StyledItem title={content}>
+  return <StyledItem title={content} onContextMenu={event => openContextMenu(event, id)}>
 
     <span>&nbsp;</span>
 

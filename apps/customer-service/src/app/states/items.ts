@@ -24,7 +24,7 @@ const useItemser = ({ initial = loadItems() }) => {
       setItems(prev => [...prev.filter(item => item.id !== newItem.id), newItem]),
     [],
   );
-  const updateFrequency = useCallback(
+  const increaseFrequency = useCallback(
     (id: Item['id']) =>
       setItems(prev => [
         ...prev.filter(item => item.id !== id),
@@ -35,15 +35,15 @@ const useItemser = ({ initial = loadItems() }) => {
       ]),
     [],
   );
-  return { items, insert, remove, update, updateFrequency };
+  return { items, insert, remove, update, increaseFrequency };
 };
 
 // 3️⃣ Wrap your hook with the constate factory splitting the values
-export const [ItemsProvider, useItems, useItemInsert, useItemRemove, useItemUpdate, useItemUpdateFrequency] = constate(
+export const [ItemsProvider, useItems, useItemInsert, useItemRemove, useItemUpdate, useItemFrequencyIncrease] = constate(
   useItemser,
   value => value.items,
   value => value.insert,
   value => value.remove,
   value => value.update,
-  value => value.updateFrequency,
+  value => value.increaseFrequency,
 );
