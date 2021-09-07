@@ -1,65 +1,49 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import tw from 'tailwind-styled-components';
 import type { Category } from '../states';
-import { useItemInsert, useItems } from '../states/items';
-import { EditorComponent } from './dialog/editor';
-import { ItemComponent } from './item';
+import { useItems } from '../states/items';
+import { ItemComponent, StyledItem } from './item';
 
 type Props = Category;
 
-const StyledContainer = styled.div``;
-
-const StyledHeading = styled.h3`
-  width: 100%;
-  text-align: center;
+const StyledContainer = tw.div`
+  w-full md:max-w-sm
+  px-2 py-4
+  shadow
+  rounded
+  transition
+  hover:shadow-lg
 `;
 
-const StyledList = styled.ul`
-  display: flex;
-  flex-direction: column;
-
-  margin: 0;
-  padding: 0;
+const StyledHeading = tw.h3`
+  w-full
+  text-center
+  font-bold text-xl text-gray-600
+  mb-4
 `;
 
-const StyledItemInsert = styled.li`
-  width: 300px;
+const StyledList = tw.ul`
+  flex
+  flex-col
+  space-y-px
 `;
 
 export const CategoryComponent = ({ name }: Props) => {
 
-  const [isInserting, setIsInserting] = useState(false);
-
   const items = useItems();
-  const insert = useItemInsert();
 
   return <StyledContainer>
-    <StyledHeading className="siimple-h3">
-      <small className="siimple">{name}</small>
-    </StyledHeading>
-    <StyledList className="siimple-list siimple-list--hover">
+    <StyledHeading>{name}</StyledHeading>
+    <StyledList>
       {
         items
           .filter(item => item.category === name)
           .sort((a, b) => b.frequency - a.frequency)
           .map(item => <ItemComponent key={item.id} {...item} />)
       }
-      <StyledItemInsert className="siimple-list-item" onClick={() => setIsInserting(true)}>
+      <StyledItem className="cursor-pointer">
         <span role="img" aria-label="add">➕</span> 点击添加常用短语
-      </StyledItemInsert>
+      </StyledItem>
     </StyledList>
-    {
-      isInserting && <EditorComponent
-        content=""
-        confirm={(text: string) => {
-          insert({ id: Date.now().toString(), content: text, category: name, frequency: 0 });
-          setIsInserting(false);
-        }}
-        cancel={() => {
-          setIsInserting(false);
-        }}
-      />
-    }
   </StyledContainer>;
 
 };

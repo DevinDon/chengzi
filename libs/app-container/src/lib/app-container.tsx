@@ -1,9 +1,7 @@
-import { CSSProperties, ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import tw from 'tailwind-styled-components';
 
-export interface Props {
-  className?: string;
-  style?: CSSProperties;
+export type Props = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
 }
 
@@ -13,5 +11,5 @@ const StyledAppContainer = tw.div`
   min-h-screen
 `;
 
-export const AppContainerComponent = ({ className, style, children }: Props) =>
-  <StyledAppContainer {...{ className, style }}>{children}</StyledAppContainer>;
+export const AppContainerComponent = ({ children, ...rest }: Props) =>
+  <StyledAppContainer {...rest}>{children}</StyledAppContainer>;
