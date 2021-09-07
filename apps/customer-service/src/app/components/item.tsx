@@ -14,6 +14,7 @@ export const StyledItem = tw.li`
   w-full
   px-4 py-2
   rounded-sm
+  select-none
   transition
   hover:shadow
   bg-gray-100

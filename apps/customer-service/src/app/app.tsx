@@ -35,7 +35,7 @@ export default () => {
 
       </AppContainerComponent>
     </MenuContext.Provider>
-    <ContextMenuComponent actions={menuActions} cursorPosition={cursorPosition} isVisable={isContextMenuVisible} setVisable={setContextMenuVisible} />
+    <ContextMenuComponent actions={menuActions} cursorPosition={cursorPosition} isVisible={isContextMenuVisible} setVisible={setContextMenuVisible} />
 
   </>;
 

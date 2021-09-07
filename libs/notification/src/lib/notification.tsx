@@ -4,16 +4,16 @@ import { XIcon } from '@heroicons/react/solid';
 import { Fragment, ReactNode } from 'react';
 
 interface Props {
-  isVisable: boolean;
-  setIsVisable: (isVisable: boolean) => void;
+  isVisible: boolean;
+  setIsVisible: (isVisible: boolean) => void;
   icon?: ReactNode;
   title: string;
   message?: ReactNode;
 }
 
 const NotificationComponent = ({
-  isVisable,
-  setIsVisable,
+  isVisible,
+  setIsVisible,
   icon,
   title,
   message,
@@ -29,9 +29,9 @@ const NotificationComponent = ({
         <div className="w-full flex flex-col items-center space-y-4 sm:items-end">
           {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
           <Transition
-            show={isVisable}
+            show={isVisible}
             as={Fragment}
-            enter="transform ease-out duration-300 transition"
+            enter="transform transition ease-out duration-300"
             enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
             enterTo="translate-y-0 opacity-100 sm:translate-x-0"
             leave="transition ease-in duration-100"
@@ -50,7 +50,7 @@ const NotificationComponent = ({
                     <button
                       className="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                       onClick={() => {
-                        setIsVisable(false)
+                        setIsVisible(false)
                       }}
                     >
                       <span className="sr-only">Close</span>
@@ -67,14 +67,14 @@ const NotificationComponent = ({
   )
 };
 
-export const SucceedNotificationComponent = ({ isVisable, setIsVisable, title, message }: Props) =>
+export const SucceedNotificationComponent = ({ isVisible, setIsVisible, title, message }: Props) =>
   <NotificationComponent
-    {...{ isVisable, setIsVisable, title, message }}
+    {...{ isVisible, setIsVisible, title, message }}
     icon={<CheckCircleIcon className="h-6 w-6 text-green-400" aria-hidden="true" />}
   />;
 
-export const FailedNotificationComponent = ({ isVisable, setIsVisable, title, message }: Props) =>
+export const FailedNotificationComponent = ({ isVisible, setIsVisible, title, message }: Props) =>
   <NotificationComponent
-    {...{ isVisable, setIsVisable, title, message }}
+    {...{ isVisible, setIsVisible, title, message }}
     icon={<XCircleIcon className="h-6 w-6 text-red-400" aria-hidden="true" />}
   />;
