@@ -15,7 +15,7 @@ import type { Item } from './states';
 export default () => {
 
   const [isDeleteDialogVisible, setDeleteDialogVisible] = useState(false);
-  const [isEditorDialogVisible, setEditorDialogVisible] = useState(true);
+  const [isEditorDialogVisible, setEditorDialogVisible] = useState(false);
   const [focusedItem, setFocusedItem] = useState<Item>({ category: '问候语' } as Item);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
