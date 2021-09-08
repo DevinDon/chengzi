@@ -1,7 +1,7 @@
 module.exports = {
   purge: [
-    './apps/**/*/src/**/*.tsx',
-    './libs/**/*/src/**/*.tsx',
+    './apps/**/*.tsx',
+    './libs/**/*.tsx',
   ],
   darkMode: 'media', // false or 'media' or 'class'
   theme: {

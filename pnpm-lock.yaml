@@ -6477,7 +6477,7 @@ packages:
     peerDependencies:
       webpack: ^4.0.0
     dependencies:
-      loader-utils: 1.2.3
+      loader-utils: 1.4.0
       schema-utils: 2.7.1
       webpack: 4.46.0
     dev: true
@@ -9596,7 +9596,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       hosted-git-info: 4.0.2
-      semver: 7.3.5
+      semver: 7.3.4
       validate-npm-package-name: 3.0.0
     dev: true
 
