@@ -10,6 +10,7 @@ const StyledTextarea = tw.textarea`
   max-w-lg w-full
   text-gray-700
   border border-gray-300
+  transition
   rounded shadow
   hover:shadow-lg
   focus:ring-yellow-500 focus:border-yellow-500

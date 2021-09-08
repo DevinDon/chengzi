@@ -8,6 +8,7 @@ import tw from 'tailwind-styled-components';
 import TextareaComponent from './components/textarea';
 import { TextareaEventTarget } from './interfaces';
 import { useConfig, useUpdateAutoCopy, useUpdateAutoPaste } from './states';
+import * as Clipboard from 'clipboard-polyfill';
 
 const StyledTwoLine = tw.div`
   flex
@@ -27,28 +28,28 @@ export default () => {
 
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-  const [shouldShowToast, setShouldShowToast] = useState(false);
-  const [shouldShowFailedToast, setShouldShowFailedToast] = useState(false);
+  const [isToastVisible, setIsToastVisible] = useState(false);
+  const [isFailedToastVisible, setIsFailedToastVisible] = useState(false);
   const { autoPaste, autoCopy } = useConfig();
   const updateAutoPaste = useUpdateAutoPaste();
   const updateAutoCopy = useUpdateAutoCopy();
 
   const paste = (value: boolean, target: TextareaEventTarget) => {
     value
-      ? navigator.clipboard
+      ? Clipboard
         .readText()
         .then(setInput)
-        .catch(() => setShouldShowFailedToast(true))
+        .catch(() => setIsFailedToastVisible(true))
       : target.select();
   };
 
   const copy = useCallback(
     () => {
       if (!output) { return; }
-      navigator.clipboard
+      Clipboard
         .writeText(output)
-        .then(() => setShouldShowToast(true))
-        .catch(() => setShouldShowFailedToast(true));
+        .then(() => setIsToastVisible(true))
+        .catch(() => setIsFailedToastVisible(true));
     },
     [output],
   );
@@ -74,9 +75,9 @@ export default () => {
 
   // on copied
   useEffect(() => {
-    shouldShowToast && setTimeout(() => setShouldShowToast(false), 3000);
-    shouldShowFailedToast && setTimeout(() => setShouldShowFailedToast(false), 3000);
-  }, [shouldShowToast, shouldShowFailedToast]);
+    isToastVisible && setTimeout(() => setIsToastVisible(false), 3000);
+    isFailedToastVisible && setTimeout(() => setIsFailedToastVisible(false), 3000);
+  }, [isToastVisible, isFailedToastVisible]);
 
   return <AppContainerComponent>
     <HeadingComponent title="订单格式化工具" />
@@ -105,8 +106,8 @@ export default () => {
       />
     </StyledTwoLine>
 
-    <SucceedNotificationComponent isVisible={shouldShowToast} setIsVisible={setShouldShowToast} title="复制成功" message={<>请按 <kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</>} />
-    <FailedNotificationComponent isVisible={shouldShowFailedToast} setIsVisible={setShouldShowFailedToast} title="复制失败" message={<>请检查浏览器是否已开启剪切板权限</>} />
+    <SucceedNotificationComponent isVisible={isToastVisible} setIsVisible={setIsToastVisible} title="复制成功" message={<>请按 <kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</>} />
+    <FailedNotificationComponent isVisible={isFailedToastVisible} setIsVisible={setIsFailedToastVisible} title="复制失败" message={<>请检查浏览器是否已开启剪切板权限</>} />
 
     <FlexGrowComponent />
 
