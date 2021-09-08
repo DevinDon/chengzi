@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode } from 'react';
 import tw from 'tailwind-styled-components';
 
-export type Props = HTMLAttributes<HTMLDivElement> & {
+type Props = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
 }
 

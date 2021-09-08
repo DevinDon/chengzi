@@ -4,6 +4,7 @@ import tw from 'tailwind-styled-components';
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   children?: ReactNode;
+  dark?: boolean;
 };
 
 type PropsWithTransition = Props & {
@@ -11,18 +12,19 @@ type PropsWithTransition = Props & {
 };
 
 export const StyledModal = tw.div`
-  flex flex-col justify-center items-center
+  flex flex-col justify-end items-center
   fixed top-0 left-0
   w-screen h-screen
-
+  overflow-hidden
   bg-black bg-opacity-50
-  md:bg-opacity-0
+
+  md:justify-center
 `;
 
 export const FullModalComponent = ({ children, ...rest }: Props) =>
   <StyledModal {...rest}>{children}</StyledModal>;
 
-export const FullModalWithTransitionComponent = ({ children, isVisible, ...rest }: PropsWithTransition) =>
+export const FullModalWithTransitionComponent = ({ children, dark, isVisible, ...rest }: PropsWithTransition) =>
   <Transition
     as={Fragment}
     show={isVisible}
@@ -33,5 +35,5 @@ export const FullModalWithTransitionComponent = ({ children, isVisible, ...rest 
     leaveFrom="opacity-100"
     leaveTo="opacity-0"
   >
-    <StyledModal {...rest}>{children}</StyledModal>
+    <StyledModal className={dark ? '' : 'md:bg-opacity-0'} {...rest}>{children}</StyledModal>
   </Transition>;
