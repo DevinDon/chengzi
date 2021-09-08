@@ -27,8 +27,8 @@ const StyledBasedButton = tw.button`
   px-8 py-2
   border border-transparent
   text-base font-medium
-  shadow rounded-md
-  hover:shadow-lg
+  shadow-sm rounded-md
+  hover:shadow
   focus:outline-none focus:ring-2 focus:ring-offset-2
   transition
 `;
@@ -41,8 +41,8 @@ const StyledDialogCancelButton = tw(StyledBasedButton)`
 
 const StyledDialogConfirmButton = tw(StyledBasedButton)`
   border-yellow-400
-  text-yellow-700 bg-yellow-200
-  hover:bg-yellow-300 focus:ring-yellow-500
+  text-yellow-700 bg-yellow-100
+  hover:bg-yellow-200 focus:ring-yellow-500
 `;
 
 type Props = HTMLAttributes<HTMLDivElement> & {

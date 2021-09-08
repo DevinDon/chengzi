@@ -1,4 +1,6 @@
+import * as Clipboard from 'clipboard-polyfill';
 import { useCallback, useContext, useState } from 'react';
+import { useTimeoutFn } from 'react-use';
 import styled from 'styled-components';
 import tw from 'tailwind-styled-components';
 import { MenuContext } from '../constants/context-menu';
@@ -67,18 +69,39 @@ const StyledItemCopied = tw(StyledItemBasedContainer)`
   bg-green-500 text-white
 `;
 
+// item copy failed
+const StyledItemCopyFailed = tw(StyledItemBasedContainer)`
+  justify-center
+  cursor-not-allowed
+  bg-red-500 text-white
+`;
+
 export const ItemComponent = ({ id, content, category, frequency }: Props) => {
 
   const { openContextMenu } = useContext(MenuContext);
   const increase = useItemFrequencyIncrease();
 
   const [isCopied, setIsCopied] = useState(false);
+  const [isCopyFailed, setIsCopyFailed] = useState(false);
+  const [, , resetTimeout] = useTimeoutFn(() => {
+    setIsCopied(false);
+    setIsCopyFailed(false);
+  }, 2500);
+
   const copy = useCallback(() => {
-    if (isCopied === true) { return; }
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2500);
-    increase(id);
-  }, [isCopied, id, increase]);
+    if ((isCopied || isCopyFailed) === true) { return; }
+    Clipboard
+      .writeText(content)
+      .then(() => {
+        setIsCopied(true);
+        resetTimeout();
+        increase(id);
+      })
+      .catch(() => {
+        setIsCopyFailed(true);
+        resetTimeout();
+      })
+  }, [resetTimeout, increase, id, content, isCopied, isCopyFailed]);
 
   return <StyledItem title={content}>
 
@@ -95,7 +118,9 @@ export const ItemComponent = ({ id, content, category, frequency }: Props) => {
       </StyledItemBadge>
     </StyledItemContainer>
 
-    <StyledItemCopied className={`${isCopied ? '' : 'translate-y-16'}`}><span>已复制</span></StyledItemCopied>
+    <StyledItemCopied className={`${isCopied ? 'translate-y-0' : 'translate-y-16'}`}><span>已复制</span></StyledItemCopied>
+
+    <StyledItemCopyFailed className={`${isCopyFailed ? 'translate-y-0' : 'translate-y-16'}`}><span>复制失败</span></StyledItemCopyFailed>
 
   </StyledItem>;
 };
