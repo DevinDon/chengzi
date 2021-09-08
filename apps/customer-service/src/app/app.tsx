@@ -14,32 +14,32 @@ import type { Item } from './states';
 
 export default () => {
 
-  const [isDeleteDialogVisible, setDeleteDialogVisible] = useState(false);
-  const [isEditorDialogVisible, setEditorDialogVisible] = useState(false);
+  const [isDeleteDialogVisible, setIsDeleteDialogVisible] = useState(false);
+  const [isEditorDialogVisible, setIsEditorDialogVisible] = useState(false);
   const [focusedItem, setFocusedItem] = useState<Item>({ category: '问候语' } as Item);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   const menuContextValue: MenuContextValue = {
     openContextMenu: (event, item) => {
       event.preventDefault();
-      setContextMenuVisible(true);
+      setIsContextMenuVisible(true);
       setCursorPosition({ x: event.clientX, y: event.clientY });
       setFocusedItem(item);
     },
   }
 
   const dialogContextValue: DialogContextValue = {
-    openConfirmDialog: item => setDeleteDialogVisible(true),
+    openConfirmDialog: item => setIsDeleteDialogVisible(true),
     openEditorDialog: item => {
       item && setFocusedItem(item as Item);
-      setEditorDialogVisible(true);
+      setIsEditorDialogVisible(true);
     },
   };
 
-  const [isContextMenuVisible, setContextMenuVisible] = useState(false);
-  const [menuActions, setMenuActions] = useState<MenuAction[]>([
-    { icon: <PencilIcon className="w-5 h-5" />, title: '编辑短语', onClick: () => setEditorDialogVisible(true) },
-    { icon: <TrashIcon className="w-5 h-5" />, title: '删除短语', onClick: () => setDeleteDialogVisible(true) },
+  const [isContextMenuVisible, setIsContextMenuVisible] = useState(false);
+  const [menuActions] = useState<MenuAction[]>([
+    { icon: <PencilIcon className="w-5 h-5" />, title: '编辑短语', onClick: () => setIsEditorDialogVisible(true) },
+    { icon: <TrashIcon className="w-5 h-5" />, title: '删除短语', onClick: () => setIsDeleteDialogVisible(true) },
     { icon: <QuestionMarkCircleIcon className="w-5 h-5" />, title: '查看帮助' },
   ]);
 
@@ -49,7 +49,7 @@ export default () => {
       <DialogContext.Provider value={dialogContextValue}>
         <AppContainerComponent
           onContextMenu={e => e.preventDefault()}
-          onClick={() => setContextMenuVisible(false)}
+          onClick={() => setIsContextMenuVisible(false)}
         >
           <HeadingComponent title="客服话术" />
           <DashboardComponent />
@@ -63,17 +63,17 @@ export default () => {
       actions={menuActions}
       cursorPosition={cursorPosition}
       isVisible={isContextMenuVisible}
-      setVisible={setContextMenuVisible}
+      setVisible={setIsContextMenuVisible}
     />
     <ConfirmDialogComponent
       item={focusedItem}
       isVisible={isDeleteDialogVisible}
-      setIsVisible={setDeleteDialogVisible}
+      setIsVisible={setIsDeleteDialogVisible}
     />
     <EditorDialogComponent
       item={focusedItem}
       isVisible={isEditorDialogVisible}
-      setIsVisible={setEditorDialogVisible}
+      setIsVisible={setIsEditorDialogVisible}
     />
 
   </>;
