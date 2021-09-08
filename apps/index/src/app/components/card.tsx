@@ -50,7 +50,7 @@ interface Props {
   className?: string;
 }
 
-export const CardComponent = ({ title, desc = '橙子专属', footer = '版权所有 小橙子 © 2021+', link, image, className }: Props) =>
+export const CardComponent = ({ title, desc = '小橙子专属', footer = '版权所有 小橙子 © 2021+', link, image, className }: Props) =>
   <a href={link} target="_blank" rel="noopener noreferrer">
     <StyledCard className={className}>
       <StyledCardTitle>{title}</StyledCardTitle>
