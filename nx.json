@@ -41,10 +41,16 @@
       "tags": [],
       "implicitDependencies": ["customer-service"]
     },
+    "dialog": {
+      "tags": []
+    },
     "divider": {
       "tags": []
     },
     "flex-grow": {
+      "tags": []
+    },
+    "full-modal": {
       "tags": []
     },
     "heading": {

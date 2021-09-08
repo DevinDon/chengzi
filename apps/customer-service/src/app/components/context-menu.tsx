@@ -1,17 +1,9 @@
+import { FullModalWithTransitionComponent } from '@chengzi-tools/full-modal';
 import { Transition } from '@headlessui/react';
 import { QuestionMarkCircleIcon } from '@heroicons/react/outline';
 import { Fragment, useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
 import type { MenuAction } from '../constants/context-menu';
-
-const StyledModal = tw.div`
-  flex flex-col justify-center items-center
-  fixed top-0 left-0
-  w-screen h-screen
-
-  bg-black bg-opacity-50
-  md:bg-opacity-0
-`;
 
 const StyledMenu = tw.div`
   flex flex-col
@@ -73,18 +65,11 @@ export const ContextMenuComponent = ({ actions, cursorPosition, isVisible, setVi
   }, [size, cursorPosition]);
 
   return <>
-    <Transition
-      as={Fragment}
-      show={isVisible}
-      enter="transition-opacity ease-out duration-300"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="transition-opacity ease-in duration-200"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
-    >
-      <StyledModal onContextMenu={e => e.preventDefault()} onClick={() => setVisible(false)} />
-    </Transition>
+    <FullModalWithTransitionComponent
+      isVisible={isVisible}
+      onContextMenu={e => e.preventDefault()}
+      onClick={() => setVisible(false)}
+    />
     <Transition
       as={Fragment}
       show={isVisible}
