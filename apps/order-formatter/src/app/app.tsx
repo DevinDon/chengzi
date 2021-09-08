@@ -105,8 +105,8 @@ export default () => {
       />
     </StyledTwoLine>
 
-    <SucceedNotificationComponent isVisable={shouldShowToast} setIsVisable={setShouldShowToast} title="复制成功" message={<>请按 <kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</>} />
-    <FailedNotificationComponent isVisable={shouldShowFailedToast} setIsVisable={setShouldShowFailedToast} title="复制失败" message={<>请检查浏览器是否已开启剪切板权限</>} />
+    <SucceedNotificationComponent isVisible={shouldShowToast} setIsVisible={setShouldShowToast} title="复制成功" message={<>请按 <kbd>Ctrl</kbd> + <kbd>V</kbd> 粘贴</>} />
+    <FailedNotificationComponent isVisible={shouldShowFailedToast} setIsVisible={setShouldShowFailedToast} title="复制失败" message={<>请检查浏览器是否已开启剪切板权限</>} />
 
     <FlexGrowComponent />
 

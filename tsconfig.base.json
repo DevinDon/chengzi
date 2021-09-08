@@ -17,8 +17,10 @@
     "paths": {
       "@chengzi-tools/app-container": ["libs/app-container/src/index.ts"],
       "@chengzi-tools/copyright": ["libs/copyright/src/index.ts"],
+      "@chengzi-tools/dialog": ["libs/dialog/src/index.ts"],
       "@chengzi-tools/divider": ["libs/divider/src/index.ts"],
       "@chengzi-tools/flex-grow": ["libs/flex-grow/src/index.ts"],
+      "@chengzi-tools/full-modal": ["libs/full-modal/src/index.ts"],
       "@chengzi-tools/heading": ["libs/heading/src/index.ts"],
       "@chengzi-tools/notification": ["libs/notification/src/index.ts"],
       "@chengzi-tools/performance": ["libs/performance/src/index.ts"],

@@ -142,6 +142,27 @@
         }
       }
     },
+    "dialog": {
+      "root": "libs/dialog",
+      "sourceRoot": "libs/dialog/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/dialog/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/dialog"],
+          "options": {
+            "jestConfig": "libs/dialog/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "divider": {
       "root": "libs/divider",
       "sourceRoot": "libs/divider/src",
@@ -179,6 +200,27 @@
           "outputs": ["coverage/libs/flex-grow"],
           "options": {
             "jestConfig": "libs/flex-grow/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "full-modal": {
+      "root": "libs/full-modal",
+      "sourceRoot": "libs/full-modal/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/full-modal/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/full-modal"],
+          "options": {
+            "jestConfig": "libs/full-modal/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -485,5 +527,5 @@
       }
     }
   },
-  "defaultProject": "customer-service"
+  "defaultProject": "index"
 }

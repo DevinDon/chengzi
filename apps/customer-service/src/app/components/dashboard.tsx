@@ -1,14 +1,11 @@
-import styled from 'styled-components';
+import tw from 'tailwind-styled-components';
 import { Category, useCategories } from '../states';
 import { CategoryComponent } from './category';
 
-const StyledDashboard = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
-
-  width: 100%;
+const StyledDashboard = tw.div`
+  flex flex-row flex-wrap
+  justify-around items-start
+  p-4
 `;
 
 export const DashboardComponent = () => {

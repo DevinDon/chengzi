@@ -1,6 +1,14 @@
 import constate from 'constate';
 import { useCallback, useEffect, useState } from 'react';
+import { loadLastID, saveLastID } from '.';
 import { Item, loadItems, saveItems } from './data';
+
+const insertNewItem = (item: Item, items: Item[]) => {
+  const id = loadLastID() + 1;
+  const newItem: Item = { ...item, id, frequency: 0 };
+  saveLastID(id);
+  return [...items, newItem];
+};
 
 // 1️⃣ Create a custom hook that receives props
 const useItemser = ({ initial = loadItems() }) => {
@@ -11,7 +19,7 @@ const useItemser = ({ initial = loadItems() }) => {
   // 2️⃣ Wrap your updaters with useCallback or use dispatch from useReducer
   const insert = useCallback(
     (newItem: Item) =>
-      setItems(prev => [...prev, newItem]),
+      setItems(prev => insertNewItem(newItem, prev)),
     [],
   );
   const remove = useCallback(
@@ -24,7 +32,7 @@ const useItemser = ({ initial = loadItems() }) => {
       setItems(prev => [...prev.filter(item => item.id !== newItem.id), newItem]),
     [],
   );
-  const updateFrequency = useCallback(
+  const increaseFrequency = useCallback(
     (id: Item['id']) =>
       setItems(prev => [
         ...prev.filter(item => item.id !== id),
@@ -35,15 +43,15 @@ const useItemser = ({ initial = loadItems() }) => {
       ]),
     [],
   );
-  return { items, insert, remove, update, updateFrequency };
+  return { items, insert, remove, update, increaseFrequency };
 };
 
 // 3️⃣ Wrap your hook with the constate factory splitting the values
-export const [ItemsProvider, useItems, useItemInsert, useItemRemove, useItemUpdate, useItemUpdateFrequency] = constate(
+export const [ItemsProvider, useItems, useItemInsert, useItemRemove, useItemUpdate, useItemFrequencyIncrease] = constate(
   useItemser,
   value => value.items,
   value => value.insert,
   value => value.remove,
   value => value.update,
-  value => value.updateFrequency,
+  value => value.increaseFrequency,
 );
