@@ -13,7 +13,7 @@ const StyledMenu = tw.div`
   bg-white
   rounded-t
   space-y-px
-  fixed top-0 left-0 z-10
+  md:fixed md:top-0 md:left-0 md:z-10
 
   md:max-w-xs
   md:rounded-b
@@ -42,43 +42,36 @@ export const ContextMenuComponent = ({ actions, cursorPosition, isVisible, setVi
 
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [size] = useState({ width: 320, height: actions.length * 40 + (actions.length - 1) + 2 * 8 });
+  const getOrigin = () => cursorPosition.x === position.x ? 'md:origin-top-left' : 'md:origin-top-right';
 
   useEffect(() => {
     const deviceWidth = window.innerWidth;
     const deviceHeight = window.innerHeight;
     const menuWidth = size.width;
     const menuHeight = size.height;
-    if (deviceWidth < 1.5 * menuWidth) {
-      const x = 0;
-      const y = deviceHeight - menuHeight;
-      setPosition({ x, y });
-    } else {
-      const x = deviceWidth - cursorPosition.x > menuWidth
-        ? cursorPosition.x
-        : cursorPosition.x - menuWidth;
-      const y = deviceHeight - cursorPosition.y > menuHeight
-        ? cursorPosition.y
-        : cursorPosition.y - menuHeight;
-      setPosition({ x, y });
-      console.log({ deviceWidth, deviceHeight, menuWidth, menuHeight, cursorPosition, x, y });
-    }
+    if (deviceWidth < 1.5 * menuWidth) { return; }
+    const x = deviceWidth - cursorPosition.x > menuWidth
+      ? cursorPosition.x
+      : cursorPosition.x - menuWidth;
+    const y = deviceHeight - cursorPosition.y > menuHeight
+      ? cursorPosition.y
+      : cursorPosition.y - menuHeight;
+    setPosition({ x, y });
   }, [size, cursorPosition]);
 
-  return <>
-    <FullModalWithTransitionComponent
-      isVisible={isVisible}
-      onContextMenu={e => e.preventDefault()}
-      onClick={() => setVisible(false)}
-    />
-    <Transition
+  return <FullModalWithTransitionComponent
+    isVisible={isVisible}
+    onContextMenu={e => e.preventDefault()}
+    onClick={() => setVisible(false)}
+  >
+    <Transition.Child
       as={Fragment}
-      show={isVisible}
-      enter="transform transition duration-300 ease-out origin-bottom md:origin-top-left"
-      enterFrom="translate-y-48 md:scale-0"
+      enter={`transform transition duration-300 ease-out origin-bottom ${getOrigin()}`}
+      enterFrom="translate-y-48 md:translate-y-0 md:scale-0"
       enterTo="translate-y-0 md:scale-100"
-      leave="transform transition duration-200 ease-in origin-bottom md:origin-top-left"
+      leave={`transform transition duration-200 ease-out origin-bottom ${getOrigin()}`}
       leaveFrom="translate-y-0 md:scale-100"
-      leaveTo="translate-y-48 md:scale-0"
+      leaveTo="translate-y-48 md:translate-y-0 md:scale-0"
     >
       <StyledMenu style={{ top: position.y, left: position.x }}>
         {
@@ -94,8 +87,8 @@ export const ContextMenuComponent = ({ actions, cursorPosition, isVisible, setVi
           )
         }
       </StyledMenu>
-    </Transition>
-  </>;
+    </Transition.Child>
+  </FullModalWithTransitionComponent>;
 
 };
 

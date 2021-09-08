@@ -26,7 +26,7 @@ export const ConfirmDialogComponent = ({ item, isVisible, setIsVisible }: Props)
       enter="transform transition duration-300 ease-out origin-bottom md:origin-center"
       enterFrom="translate-y-48 md:scale-0"
       enterTo="translate-y-0 md:scale-100"
-      leave="transform transition duration-200 ease-in origin-bottom md:origin-center"
+      leave="transform transition duration-200 ease-out origin-bottom md:origin-center"
       leaveFrom="translate-y-0 md:scale-100"
       leaveTo="translate-y-48 md:scale-0"
     >

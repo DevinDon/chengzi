@@ -52,12 +52,12 @@ const StyledItemText = tw.span`
 const StyledItemBadge = tw.span`
   flex-shrink-0
   rounded-3xl
-  text-sm
+  text-xs
   text-white
   text-center
   font-bold
   bg-yellow-500
-  w-8
+  w-8 ml-1
 `;
 
 // item copied
@@ -80,11 +80,15 @@ export const ItemComponent = ({ id, content, category, frequency }: Props) => {
     increase(id);
   }, [isCopied, id, increase]);
 
-  return <StyledItem title={content} onContextMenu={event => openContextMenu(event, id)}>
+  return <StyledItem title={content}>
 
     <span>&nbsp;</span>
 
-    <StyledItemContainer className={`${isCopied ? '-translate-y-16' : ''}`} onClick={copy}>
+    <StyledItemContainer
+      className={`${isCopied ? '-translate-y-16' : ''}`}
+      onClick={copy}
+      onContextMenu={event => openContextMenu(event, id)}
+    >
       <StyledItemText>{content}</StyledItemText>
       <StyledItemBadge>
         {frequency > 999 ? Math.trunc(frequency / 1000) + 'k+' : frequency}
