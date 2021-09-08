@@ -24,10 +24,15 @@ interface Props {
 export const EditorDialogComponent = ({ item, isVisible, setIsVisible }: Props) => {
 
   const [newItem, setNewItem] = useState<Props['item']>(item);
+  const [isValid, setIsValid] = useState(true);
 
   const update = useItemUpdate();
   const insert = useItemInsert();
   const confirm = () => {
+    if (!newItem.content) {
+      setIsValid(false);
+      return;
+    }
     if (item.id) {
       update(newItem as Item);
     } else {
@@ -37,9 +42,7 @@ export const EditorDialogComponent = ({ item, isVisible, setIsVisible }: Props) 
   };
   const cancel = () => setIsVisible(false);
 
-  useEffect(() => {
-    setNewItem(item);
-  }, [item]);
+  useEffect(() => { setNewItem(item); }, [item]);
 
   return <FullModalWithTransitionComponent
     isVisible={isVisible}
@@ -57,9 +60,14 @@ export const EditorDialogComponent = ({ item, isVisible, setIsVisible }: Props) 
     >
       <DialogComponent title={item.id ? '更新便捷短语' : `新增“${item.category}”系列短语`} actions={{ cancel, confirm }} >
         <StyledTextarea
+          className={isValid ? '' : 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500'}
           value={newItem?.content}
           placeholder="请输入便捷短语内容"
-          onChange={e => setNewItem({ ...newItem, content: e.currentTarget.value })}
+          onChange={e => {
+            const content = e.currentTarget.value;
+            setIsValid(!!content);
+            setNewItem({ ...newItem, content });
+          }}
         />
       </DialogComponent>
     </Transition.Child>
