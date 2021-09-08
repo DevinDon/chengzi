@@ -29,14 +29,17 @@ export default () => {
   }
 
   const dialogContextValue: DialogContextValue = {
-    openConfirmDialog: () => setDeleteDialogVisible(true),
-    openEditorDialog: () => setEditorDialogVisible(true),
+    openConfirmDialog: item => setDeleteDialogVisible(true),
+    openEditorDialog: item => {
+      item && setFocusedItem(item as Item);
+      setEditorDialogVisible(true);
+    },
   };
 
   const [isContextMenuVisible, setContextMenuVisible] = useState(false);
   const [menuActions, setMenuActions] = useState<MenuAction[]>([
-    { icon: <PencilIcon className="w-5 h-5" />, title: '编辑短语', onClick: dialogContextValue.openEditorDialog },
-    { icon: <TrashIcon className="w-5 h-5" />, title: '删除短语', onClick: dialogContextValue.openConfirmDialog },
+    { icon: <PencilIcon className="w-5 h-5" />, title: '编辑短语', onClick: () => setEditorDialogVisible(true) },
+    { icon: <TrashIcon className="w-5 h-5" />, title: '删除短语', onClick: () => setDeleteDialogVisible(true) },
     { icon: <QuestionMarkCircleIcon className="w-5 h-5" />, title: '查看帮助' },
   ]);
 

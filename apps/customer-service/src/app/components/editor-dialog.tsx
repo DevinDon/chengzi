@@ -28,7 +28,7 @@ export const EditorDialogComponent = ({ item, isVisible, setIsVisible }: Props) 
   const update = useItemUpdate();
   const insert = useItemInsert();
   const confirm = () => {
-    if (item) {
+    if (item.id) {
       update(newItem as Item);
     } else {
       insert(newItem as Item);
@@ -55,7 +55,7 @@ export const EditorDialogComponent = ({ item, isVisible, setIsVisible }: Props) 
       leaveFrom="translate-y-0 md:scale-100"
       leaveTo="translate-y-48 md:scale-0"
     >
-      <DialogComponent title={item.id ? '更新便捷短语' : '新增便捷短语'} actions={{ cancel, confirm }} >
+      <DialogComponent title={item.id ? '更新便捷短语' : `新增“${item.category}”系列短语`} actions={{ cancel, confirm }} >
         <StyledTextarea
           value={newItem?.content}
           placeholder="请输入便捷短语内容"

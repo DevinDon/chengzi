@@ -1,6 +1,14 @@
 import constate from 'constate';
 import { useCallback, useEffect, useState } from 'react';
+import { loadLastID, saveLastID } from '.';
 import { Item, loadItems, saveItems } from './data';
+
+const insertNewItem = (item: Item, items: Item[]) => {
+  const id = loadLastID() + 1;
+  const newItem: Item = { ...item, id, frequency: 0 };
+  saveLastID(id);
+  return [...items, newItem];
+};
 
 // 1️⃣ Create a custom hook that receives props
 const useItemser = ({ initial = loadItems() }) => {
@@ -11,7 +19,7 @@ const useItemser = ({ initial = loadItems() }) => {
   // 2️⃣ Wrap your updaters with useCallback or use dispatch from useReducer
   const insert = useCallback(
     (newItem: Item) =>
-      setItems(prev => [...prev, newItem]),
+      setItems(prev => insertNewItem(newItem, prev)),
     [],
   );
   const remove = useCallback(
