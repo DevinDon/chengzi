@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 import tw from 'tailwind-styled-components';
 
 const StyledDialog = tw.div`
@@ -27,8 +27,8 @@ const StyledBasedButton = tw.button`
   px-8 py-2
   border border-transparent
   text-base font-medium
-  shadow-sm rounded-md
-  hover:shadow
+  shadow rounded-md
+  hover:shadow-lg
   focus:outline-none focus:ring-2 focus:ring-offset-2
   transition
 `;
@@ -40,8 +40,9 @@ const StyledDialogCancelButton = tw(StyledBasedButton)`
 `;
 
 const StyledDialogConfirmButton = tw(StyledBasedButton)`
-  text-yellow-500 bg-yellow-100
-  hover:bg-yellow-200 focus:ring-yellow-500
+  border-yellow-400
+  text-yellow-700 bg-yellow-200
+  hover:bg-yellow-300 focus:ring-yellow-500
 `;
 
 type Props = HTMLAttributes<HTMLDivElement> & {
@@ -53,16 +54,18 @@ type Props = HTMLAttributes<HTMLDivElement> & {
   };
 };
 
-export const DialogComponent = ({ title, children, actions }: Props) => {
+export const DialogComponent = forwardRef<HTMLDivElement, Props>(
+  ({ title, children, actions }: Props, ref) => {
 
-  return <StyledDialog>
-    <StyledDialogTitle>{title}</StyledDialogTitle>
-    <StyledDialogContent>{children}</StyledDialogContent>
-    <StyledDialogActions>
-      <StyledDialogCancelButton onClick={actions.cancel}>取消</StyledDialogCancelButton>
-      <StyledDialogConfirmButton onClick={actions.confirm}>确定</StyledDialogConfirmButton>
-    </StyledDialogActions>
-  </StyledDialog>;
-};
+    return <StyledDialog ref={ref} onClick={event => event.stopPropagation()}>
+      <StyledDialogTitle>{title}</StyledDialogTitle>
+      <StyledDialogContent>{children}</StyledDialogContent>
+      <StyledDialogActions>
+        <StyledDialogCancelButton onClick={actions.cancel}>取消</StyledDialogCancelButton>
+        <StyledDialogConfirmButton onClick={actions.confirm}>确定</StyledDialogConfirmButton>
+      </StyledDialogActions>
+    </StyledDialog>;
+  },
+);
 
 export default DialogComponent;

@@ -8,6 +8,9 @@ export interface Item {
   category: Category['name'];
 }
 
+export type ItemArgs =
+  Partial<Omit<Item, 'category'>> & Pick<Item, 'category'>;
+
 export interface Category {
   name: string;
   id: number;

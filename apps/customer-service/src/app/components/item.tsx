@@ -87,7 +87,7 @@ export const ItemComponent = ({ id, content, category, frequency }: Props) => {
     <StyledItemContainer
       className={`${isCopied ? '-translate-y-16' : ''}`}
       onClick={copy}
-      onContextMenu={event => openContextMenu(event, id)}
+      onContextMenu={event => openContextMenu(event, { id, content, category, frequency })}
     >
       <StyledItemText>{content}</StyledItemText>
       <StyledItemBadge>

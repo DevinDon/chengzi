@@ -2,46 +2,77 @@ import { AppContainerComponent } from '@chengzi-tools/app-container';
 import { CopyrightComponent } from '@chengzi-tools/copyright';
 import { FlexGrowComponent } from '@chengzi-tools/flex-grow';
 import { HeadingComponent } from '@chengzi-tools/heading';
+import { PencilIcon, QuestionMarkCircleIcon, TrashIcon } from '@heroicons/react/outline';
 import { useState } from 'react';
 import ConfirmDialogComponent from './components/confirm-dialog';
 import { ContextMenuComponent } from './components/context-menu';
 import { DashboardComponent } from './components/dashboard';
-import { DEFAULT_MENU_ACTIONS, MenuAction, MenuContext, MenuContextValue } from './constants/context-menu';
+import EditorDialogComponent from './components/editor-dialog';
+import { MenuAction, MenuContext, MenuContextValue } from './constants/context-menu';
+import { DialogContext, DialogContextValue } from './constants/dialog-context';
+import type { Item } from './states';
 
 export default () => {
 
-  const [isContextMenuVisible, setContextMenuVisible] = useState(false);
-  const [isDeleteDialogVisible, setDeleteDialogVisible] = useState(true);
+  const [isDeleteDialogVisible, setDeleteDialogVisible] = useState(false);
+  const [isEditorDialogVisible, setEditorDialogVisible] = useState(true);
+  const [focusedItem, setFocusedItem] = useState<Item>({ category: '问候语' } as Item);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [menuActions, setMenuActions] = useState<MenuAction[]>(DEFAULT_MENU_ACTIONS);
 
-  const openContextMenu: MenuContextValue['openContextMenu'] = (event, id) => {
-    event.preventDefault();
-    setContextMenuVisible(true);
-    setCursorPosition({ x: event.clientX, y: event.clientY });
+  const menuContextValue: MenuContextValue = {
+    openContextMenu: (event, item) => {
+      event.preventDefault();
+      setContextMenuVisible(true);
+      setCursorPosition({ x: event.clientX, y: event.clientY });
+      setFocusedItem(item);
+    },
+  }
+
+  const dialogContextValue: DialogContextValue = {
+    openConfirmDialog: () => setDeleteDialogVisible(true),
+    openEditorDialog: () => setEditorDialogVisible(true),
   };
 
+  const [isContextMenuVisible, setContextMenuVisible] = useState(false);
+  const [menuActions, setMenuActions] = useState<MenuAction[]>([
+    { icon: <PencilIcon className="w-5 h-5" />, title: '编辑短语', onClick: dialogContextValue.openEditorDialog },
+    { icon: <TrashIcon className="w-5 h-5" />, title: '删除短语', onClick: dialogContextValue.openConfirmDialog },
+    { icon: <QuestionMarkCircleIcon className="w-5 h-5" />, title: '查看帮助' },
+  ]);
+
   return <>
-    <MenuContext.Provider value={{ openContextMenu }}>
-      <AppContainerComponent
-        onContextMenu={e => e.preventDefault()}
-        onClick={() => setContextMenuVisible(false)}
-      >
-        <HeadingComponent title="客服话术" />
-        <button onClick={() => setDeleteDialogVisible(!isDeleteDialogVisible)}>测试</button>
-        <DashboardComponent />
 
-        <FlexGrowComponent />
-
-        <CopyrightComponent />
-
-      </AppContainerComponent>
+    <MenuContext.Provider value={menuContextValue}>
+      <DialogContext.Provider value={dialogContextValue}>
+        <AppContainerComponent
+          onContextMenu={e => e.preventDefault()}
+          onClick={() => setContextMenuVisible(false)}
+        >
+          <HeadingComponent title="客服话术" />
+          <DashboardComponent />
+          <FlexGrowComponent />
+          <CopyrightComponent />
+        </AppContainerComponent>
+      </DialogContext.Provider>
     </MenuContext.Provider>
-    <ContextMenuComponent actions={menuActions} cursorPosition={cursorPosition} isVisible={isContextMenuVisible} setVisible={setContextMenuVisible} />
+
+    <ContextMenuComponent
+      actions={menuActions}
+      cursorPosition={cursorPosition}
+      isVisible={isContextMenuVisible}
+      setVisible={setContextMenuVisible}
+    />
     <ConfirmDialogComponent
-      item={{ id: '1', frequency: 0, content: '亲，您好，小电商家专线，我是追追，很高兴为您服务~', category: '问候语' }}
+      item={focusedItem}
       isVisible={isDeleteDialogVisible}
-      setIsVisible={setDeleteDialogVisible} />
+      setIsVisible={setDeleteDialogVisible}
+    />
+    <EditorDialogComponent
+      item={focusedItem}
+      isVisible={isEditorDialogVisible}
+      setIsVisible={setEditorDialogVisible}
+    />
+
   </>;
 
 };

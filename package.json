@@ -36,6 +36,7 @@
     "@nrwl/tao": "12.8.0",
     "@nrwl/web": "12.8.0",
     "@nrwl/workspace": "12.8.0",
+    "@tailwindcss/forms": "^0.3.3",
     "@testing-library/react": "11.2.6",
     "@testing-library/react-hooks": "7.0.1",
     "@types/jest": "26.0.24",

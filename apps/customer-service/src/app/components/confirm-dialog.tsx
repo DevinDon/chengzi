@@ -12,8 +12,11 @@ interface Props {
 
 export const ConfirmDialogComponent = ({ item, isVisible, setIsVisible }: Props) => {
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const confirm = () => useItemRemove()(item.id);
+  const remove = useItemRemove();
+  const confirm = () => {
+    remove(item.id);
+    setIsVisible(false);
+  };
   const cancel = () => setIsVisible(false);
 
   return <FullModalWithTransitionComponent
@@ -22,7 +25,7 @@ export const ConfirmDialogComponent = ({ item, isVisible, setIsVisible }: Props)
     dark={true}
   >
     <Transition.Child
-      as="div"
+      as={Fragment}
       enter="transform transition duration-300 ease-out origin-bottom md:origin-center"
       enterFrom="translate-y-48 md:scale-0"
       enterTo="translate-y-0 md:scale-100"
@@ -31,7 +34,7 @@ export const ConfirmDialogComponent = ({ item, isVisible, setIsVisible }: Props)
       leaveTo="translate-y-48 md:scale-0"
     >
       <DialogComponent title="删除确认" actions={{ cancel, confirm }}>
-        确认要删除“<i>{item.content}</i>”吗？
+        确认要删除“<i>{item?.content}</i>”吗？
       </DialogComponent>
     </Transition.Child>
   </FullModalWithTransitionComponent>;
