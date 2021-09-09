@@ -3,22 +3,16 @@ import { CopyrightComponent } from '@chengzi-tools/copyright';
 import { FlexGrowComponent } from '@chengzi-tools/flex-grow';
 import { HeadingComponent } from '@chengzi-tools/heading';
 import { FailedNotificationComponent, SucceedNotificationComponent } from '@chengzi-tools/notification';
+import * as Clipboard from 'clipboard-polyfill';
 import { useCallback, useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
-import TextareaComponent from './components/textarea';
+import { TextareaComponent } from './components/textarea';
 import { TextareaEventTarget } from './interfaces';
 import { useConfig, useUpdateAutoCopy, useUpdateAutoPaste } from './states';
-import * as Clipboard from 'clipboard-polyfill';
 
 const StyledTwoLine = tw.div`
-  flex
-  flex-row
-  justify-around
-  items-center
-  flex-wrap
-
-  p-4
-  mt-4
+  flex flex-row justify-around items-center flex-wrap
+  p-4 mt-4
   w-full
 
   md:space-x-4
