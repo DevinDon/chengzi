@@ -8,11 +8,13 @@ export interface Props {
   subtitle?: string;
 }
 
-const StyledLogo = tw.img`
+const StyledIconLink = tw.a`
   w-7 h-7
   self-center
   rounded-full
   flex-shrink-0
+  transition transform
+  hover:scale-110 hover:shadow
 `;
 
 const StyledHeading = tw.div`
@@ -33,25 +35,22 @@ const StyledSubtitle = tw.h2`
   truncate
 `;
 
-const StyledLink = tw.a`
-  w-7 h-7
-  self-center
-  rounded-full
-  flex-shrink-0
-  transition transform
-  hover:scale-110 hover:shadow
-`;
-
 export const HeadingComponent = ({ title, subtitle = '小橙子专属' }: Props) => <StyledHeading>
-  <StyledLogo src={boxIcon} alt="Tool Icon" />
+  <StyledIconLink
+    href="/"
+    title="返回主页"
+    rel="noopener noreferrer"
+  >
+    <img src={boxIcon} alt="Tool Icon" />
+  </StyledIconLink>
   <StyledTitle>{title}</StyledTitle>
   <StyledSubtitle>{subtitle}</StyledSubtitle>
   <FlexGrowComponent />
-  <StyledLink
+  <StyledIconLink
     href="https://github.com/devindon/chengzi-tools"
     target="_blank"
     rel="noopener noreferrer"
   >
     <img src={githubIcon} alt="GitHub Icon" />
-  </StyledLink>
+  </StyledIconLink>
 </StyledHeading>;

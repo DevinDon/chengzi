@@ -72,8 +72,7 @@
             ],
             "styles": [],
             "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/webpack",
-            "baseHref": "/customer-service/"
+            "webpackConfig": "@nrwl/react/plugins/webpack"
           },
           "configurations": {
             "production": {
@@ -439,8 +438,7 @@
             ],
             "styles": [],
             "scripts": [],
-            "webpackConfig": "@nrwl/react/plugins/webpack",
-            "baseHref": "/order-formatter/"
+            "webpackConfig": "@nrwl/react/plugins/webpack"
           },
           "configurations": {
             "production": {
