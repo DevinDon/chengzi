@@ -1,14 +1,15 @@
 {
   "name": "chengzi-tools",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "build": "npm run build:index && npm run build:customer-service && npm run build:order-formatter && npm run deploy",
+    "build": "npm run build:index && npm run build:customer-service && npm run build:order-formatter",
     "build:index": "NODE_ENV=production nx build index",
     "build:customer-service": "NODE_ENV=production nx build customer-service",
     "build:order-formatter": "NODE_ENV=production nx build order-formatter",
-    "deploy": "cp -r dist/apps/* /mnt/config/demo/index/",
+    "deploy": "npm run build && cp -r dist/apps/* /mnt/config/demo/index/",
+    "lint": "nx run-many --target=lint --all=true --parallel=true",
     "test": "nx test"
   },
   "private": true,
