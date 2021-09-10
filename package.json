@@ -8,9 +8,9 @@
     "build:index": "NODE_ENV=production nx build index",
     "build:customer-service": "NODE_ENV=production nx build customer-service",
     "build:order-formatter": "NODE_ENV=production nx build order-formatter",
-    "deploy": "npm run build && cp -r dist/apps/* /mnt/config/demo/index/",
     "lint": "nx run-many --target=lint --all=true --parallel=true",
-    "test": "nx test"
+    "test": "nx test",
+    "ci-prepare": "npm i -g pnpm && pnpm i"
   },
   "private": true,
   "dependencies": {
