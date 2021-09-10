@@ -1,3 +1,3 @@
-FROM iinfinity/h2o:latest
+FROM iinfinity/nginx:latest
 
 COPY ["./dist/apps/customer-service", "/app"]
