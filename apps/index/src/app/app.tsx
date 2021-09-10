@@ -23,8 +23,8 @@ export default () => <AppContainerComponent>
   <HeadingComponent title="小橙子的工具箱" />
 
   <StyledList>
-    <CardComponent title="客服话术" link="customer-service.devin.red" image={customerServiceCover} />
-    <CardComponent title="订单格式化" link="order-formatter.devin.red" image={orderFormatterCover} />
+    <CardComponent title="客服话术" link="https://customer-service.devin.red" image={customerServiceCover} />
+    <CardComponent title="订单格式化" link="https://order-formatter.devin.red" image={orderFormatterCover} />
     <CardComponent className="cursor-not-allowed" title="正在施工中" image={workingCover} />
   </StyledList>
 
