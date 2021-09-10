@@ -296,7 +296,7 @@
             "{options.outputPath}"
           ],
           "options": {
-            "outputPath": "dist/apps",
+            "outputPath": "dist/apps/index",
             "index": "apps/index/src/index.html",
             "main": "apps/index/src/main.tsx",
             "polyfills": "apps/index/src/polyfills.ts",
