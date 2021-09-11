@@ -7,7 +7,7 @@ import { Item, ItemArgs, useItemInsert, useItemUpdate } from '../states';
 
 const StyledTextarea = tw.textarea`
   block
-  max-w-lg w-full
+  max-w-lg w-full h-32
   text-gray-700
   border border-gray-300
   transition
