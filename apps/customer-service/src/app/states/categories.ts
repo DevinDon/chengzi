@@ -1,5 +1,6 @@
 import constate from 'constate';
 import { useCallback, useEffect, useState } from 'react';
+import type { Category } from '.';
 import { loadCategories, saveCategories } from './data';
 
 // 1️⃣ Create a custom hook that receives props
@@ -10,18 +11,18 @@ const useCategorieser = ({ initial = loadCategories() }) => {
   }, [categories]);
   // 2️⃣ Wrap your updaters with useCallback or use dispatch from useReducer
   const insert = useCallback(
-    newCategory =>
+    (newCategory: Category) =>
       setCategories(prev => [...prev, newCategory]),
     [],
   );
   const remove = useCallback(
-    name =>
-      setCategories(prev => prev.filter(category => category.name !== name)),
+    (id: Category['id']) =>
+      setCategories(prev => prev.filter(category => category.id !== id)),
     [],
   );
   const update = useCallback(
-    newCategory =>
-      setCategories(prev => [...prev.filter(category => category.name !== newCategory.name), newCategory]),
+    (newCategory: Category) =>
+      setCategories(prev => [...prev.filter(category => category.id !== newCategory.id), newCategory]),
     [],
   );
   return { categories, insert, remove, update };

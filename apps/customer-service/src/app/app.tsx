@@ -16,7 +16,7 @@ export default () => {
 
   const [isDeleteDialogVisible, setIsDeleteDialogVisible] = useState(false);
   const [isEditorDialogVisible, setIsEditorDialogVisible] = useState(false);
-  const [focusedItem, setFocusedItem] = useState<Item>({ category: '问候语' } as Item);
+  const [focusedItem, setFocusedItem] = useState<Item>({ category: 1 } as Item);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   const menuContextValue: MenuContextValue = {
