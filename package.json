@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "build": "npm run build:index && npm run build:customer-service && npm run build:order-formatter",
+    "build": "NODE_ENV=production nx run-many --target=build --all=true --parallel=true --maxParallel=4 --prod",
     "build:index": "NODE_ENV=production nx build index --prod",
     "build:customer-service": "NODE_ENV=production nx build customer-service --prod",
     "build:order-formatter": "NODE_ENV=production nx build order-formatter --prod",
