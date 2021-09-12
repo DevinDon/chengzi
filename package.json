@@ -5,9 +5,9 @@
   "scripts": {
     "start": "nx serve",
     "build": "npm run build:index && npm run build:customer-service && npm run build:order-formatter",
-    "build:index": "NODE_ENV=production nx build index",
-    "build:customer-service": "NODE_ENV=production nx build customer-service",
-    "build:order-formatter": "NODE_ENV=production nx build order-formatter",
+    "build:index": "NODE_ENV=production nx build index --prod",
+    "build:customer-service": "NODE_ENV=production nx build customer-service --prod",
+    "build:order-formatter": "NODE_ENV=production nx build order-formatter --prod",
     "lint": "nx run-many --target=lint --all=true --parallel=true",
     "test": "nx test",
     "ci-prepare": "npm i -g pnpm && pnpm i"
@@ -40,6 +40,7 @@
     "@nrwl/tao": "12.8.0",
     "@nrwl/web": "12.8.0",
     "@nrwl/workspace": "12.8.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "0.5.0-rc.2",
     "@tailwindcss/forms": "^0.3.3",
     "@testing-library/react": "11.2.6",
     "@testing-library/react-hooks": "7.0.1",
@@ -54,6 +55,7 @@
     "@typescript-eslint/parser": "~4.28.3",
     "babel-jest": "27.0.6",
     "babel-plugin-styled-components": "1.10.7",
+    "copy-webpack-plugin": "^9.0.1",
     "cypress": "^8.3.0",
     "eslint": "7.22.0",
     "eslint-config-prettier": "8.1.0",
@@ -63,10 +65,19 @@
     "eslint-plugin-react": "7.23.1",
     "eslint-plugin-react-hooks": "4.2.0",
     "jest": "27.0.3",
+    "mini-css-extract-plugin": "^2.1.0",
     "prettier": "^2.3.1",
+    "react-refresh": "^0.10.0",
+    "source-map-loader": "^3.0.0",
     "tailwind-styled-components": "^2.0.3",
     "tailwindcss": "^2.2.9",
+    "terser-webpack-plugin": "^5.1.1",
     "ts-jest": "27.0.3",
-    "typescript": "~4.3.5"
+    "typescript": "~4.3.5",
+    "webpack": "^5.47.0",
+    "webpack-dev-server": "4.0.0-rc.0",
+    "webpack-merge": "^5.8.0",
+    "webpack-node-externals": "^3.0.0",
+    "webpack-sources": "^3.0.2"
   }
 }
