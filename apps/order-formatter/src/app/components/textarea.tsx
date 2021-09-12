@@ -23,7 +23,7 @@ const StyledTextarea = tw.textarea`
   text-gray-700
   border-2
   rounded-md
-  ${props => props.disabled ? 'cursor-pointer' : 'cursor-auto'}
+  ${props => props.readOnly ? 'cursor-pointer' : 'cursor-auto'}
 
   transition
   focus:outline-none
@@ -32,7 +32,7 @@ const StyledTextarea = tw.textarea`
 `;
 
 interface Props {
-  disabled?: boolean,
+  readonly?: boolean,
   title: string;
   content: string;
   setContent: (content: string) => void;
@@ -40,11 +40,11 @@ interface Props {
   switchTitle: string;
   switchValue: boolean;
   setSwitchValue: (value: boolean) => void;
-  onClick: (switchValue: boolean, target: TextareaEventTarget) => void;
+  onClick: (target?: TextareaEventTarget) => void;
 }
 
 export const TextareaComponent = ({
-  disabled,
+  readonly,
   title,
   content,
   setContent,
@@ -61,14 +61,14 @@ export const TextareaComponent = ({
     <StyledTitle><label htmlFor={id}>{title}</label></StyledTitle>
     <SwitchComponent title={switchTitle} value={switchValue} setValue={setSwitchValue} />
     <StyledTextarea
-      disabled={disabled}
+      readOnly={readonly}
       name={id}
       id={id}
       rows={20}
       placeholder={placeholder}
       value={content}
       onChange={e => setContent(e.target.value)}
-      onClick={({ target }) => onClick(switchValue, target as TextareaEventTarget)}
+      onClick={({ target }) => onClick(target as TextareaEventTarget)}
     />
   </StyledContainer>;
 };

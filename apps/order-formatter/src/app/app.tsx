@@ -5,12 +5,14 @@ import { HeadingComponent } from '@chengzi-tools/heading';
 import { FailedNotificationComponent, SucceedNotificationComponent } from '@chengzi-tools/notification';
 import * as Clipboard from 'clipboard-polyfill';
 import { useCallback, useEffect, useState } from 'react';
+import { useDebounce } from 'react-use';
 import tw from 'tailwind-styled-components';
 import { TextareaComponent } from './components/textarea';
 import { TextareaEventTarget } from './interfaces';
 import { useConfig, useUpdateAutoCopy, useUpdateAutoPaste } from './states';
 
-const StyledTwoLine = tw.div`
+const
+  StyledTwoLine = tw.div`
   flex flex-row justify-around items-center flex-wrap
   p-4 mt-4
   w-full
@@ -28,20 +30,31 @@ export default () => {
   const updateAutoPaste = useUpdateAutoPaste();
   const updateAutoCopy = useUpdateAutoCopy();
 
-  const paste = (value: boolean, target: TextareaEventTarget) => {
-    value
+  const paste = (target?: TextareaEventTarget) => {
+    autoPaste
       ? Clipboard
         .readText()
         .then(setInput)
         .catch(() => setIsFailedToastVisible(true))
-      : target.select();
+      : target?.select();
   };
 
   const copy = useCallback(
-    () => {
+    (target?: TextareaEventTarget) => {
       if (!output) { return; }
+      target?.select();
+      const item = new Clipboard.ClipboardItem({
+        "text/html": new Blob(
+          [`<p>${output.replace(/\n/g, '<br>')}</p>`],
+          { type: "text/html" }
+        ),
+        "text/plain": new Blob(
+          [output],
+          { type: "text/plain" }
+        ),
+      });
       Clipboard
-        .writeText(output)
+        .write([item])
         .then(() => setIsToastVisible(true))
         .catch(() => setIsFailedToastVisible(true));
     },
@@ -52,15 +65,17 @@ export default () => {
     .replace(/:\s+/g, '：')
     .replace(/:$/gm, '：')
     .replace(/\n/g, ' ')
-    .replace(/\s(.{3,6}：)/g, '\r\n$1')
+    .replace(/\s(.{3,6}：)/g, '\n$1')
     .replace(/^\s+/gm, '')
     .replace(/\s+$/gm, '')
     .trim();
 
   // auto format
-  useEffect(() => {
-    setOutput(formatOrder(input));
-  }, [input]);
+  useDebounce(
+    () => setOutput(formatOrder(input)),
+    300,
+    [input],
+  );
 
   // auto copy
   useEffect(() => {
@@ -88,7 +103,7 @@ export default () => {
         onClick={paste}
       />
       <TextareaComponent
-        disabled={true}
+        readonly={true}
         title="点此文本框复制输出内容"
         content={output}
         setContent={setOutput}
