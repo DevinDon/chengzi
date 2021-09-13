@@ -25,14 +25,27 @@ const useCategorieser = ({ initial = loadCategories() }) => {
       setCategories(prev => [...prev.filter(category => category.id !== newCategory.id), newCategory]),
     [],
   );
-  return { categories, insert, remove, update };
+  const select = useCallback(
+    (id: Category['id']) =>
+      categories.find(category => category.id === id),
+    [categories],
+  );
+  return { categories, insert, remove, update, select };
 };
 
 // 3️⃣ Wrap your hook with the constate factory splitting the values
-export const [CategoriesProvider, useCategories, useCategoryInsert, useCategoryRemove, useCategoryUpdate] = constate(
+export const [
+  CategoriesProvider,
+  useCategories,
+  useCategoryInsert,
+  useCategoryRemove,
+  useCategoryUpdate,
+  useCategorySelect,
+] = constate(
   useCategorieser,
   value => value.categories,
   value => value.insert,
   value => value.remove,
   value => value.update,
+  value => value.select,
 );

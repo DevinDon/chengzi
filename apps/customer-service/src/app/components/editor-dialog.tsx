@@ -3,7 +3,7 @@ import { FullModalWithTransitionComponent } from '@chengzi-tools/full-modal';
 import { Transition } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
-import { Item, ItemArgs, useItemInsert, useItemUpdate } from '../states';
+import { Item, ItemArgs, useCategorySelect, useItemInsert, useItemUpdate } from '../states';
 
 const StyledTextarea = tw.textarea`
   block
@@ -27,8 +27,9 @@ export const EditorDialogComponent = ({ item, isVisible, setIsVisible }: Props) 
   const [newItem, setNewItem] = useState<Props['item']>(item);
   const [isValid, setIsValid] = useState(true);
 
-  const update = useItemUpdate();
+  const select = useCategorySelect();
   const insert = useItemInsert();
+  const update = useItemUpdate();
   const confirm = () => {
     if (!newItem.content) {
       setIsValid(false);
@@ -59,7 +60,7 @@ export const EditorDialogComponent = ({ item, isVisible, setIsVisible }: Props) 
       leaveFrom="translate-y-0 md:scale-100"
       leaveTo="translate-y-48 md:scale-0"
     >
-      <DialogComponent title={item.id ? '更新便捷短语' : `新增“${item.category}”系列短语`} actions={{ cancel, confirm }} >
+      <DialogComponent title={item.id ? '更新便捷短语' : `新增“${select(item.category)?.name || '未分类'}”系列短语`} actions={{ cancel, confirm }} >
         <StyledTextarea
           className={isValid ? '' : 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500'}
           value={newItem?.content}
