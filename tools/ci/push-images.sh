@@ -1,11 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
 docker login \
   --username=${ALIYUN_USERNAME} \
   --password=${ALIYUN_PASSWORD} \
   ${ALIYUN_REGISTRY}
 
-export IMAGE_INDEX=${ALIYUN_REGISTRY}/iinfinity/chengzi-tools-index
-export IMAGE_CS=${ALIYUN_REGISTRY}/iinfinity/chengzi-tools-customer-service
-export IMAGE_OF=${ALIYUN_REGISTRY}/iinfinity/chengzi-tools-order-formatter
+IMAGE_INDEX=${ALIYUN_REGISTRY}/iinfinity/chengzi-tools-index
+IMAGE_CS=${ALIYUN_REGISTRY}/iinfinity/chengzi-tools-customer-service
+IMAGE_OF=${ALIYUN_REGISTRY}/iinfinity/chengzi-tools-order-formatter
 
 cd ${BUILD_DIR} && tar zxvf package.tgz
 
