@@ -7,7 +7,7 @@ export IMAGE_INDEX=${ALIYUN_REGISTRY}/iinfinity/chengzi-tools-index
 export IMAGE_CS=${ALIYUN_REGISTRY}/iinfinity/chengzi-tools-customer-service
 export IMAGE_OF=${ALIYUN_REGISTRY}/iinfinity/chengzi-tools-order-formatter
 
-cd ${package_download_path} && tar zxvf package.tgz
+cd ${BUILD_DIR} && tar zxvf package.tgz
 
 if [ -d "dist/apps/index" ]; then
   echo "推送 Index 镜像"
