@@ -12,7 +12,10 @@
             "lintFilePatterns": [
               "libs/app-container/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -37,7 +40,10 @@
             "lintFilePatterns": [
               "libs/copyright/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -118,7 +124,10 @@
             "lintFilePatterns": [
               "apps/customer-service/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -155,7 +164,10 @@
             "lintFilePatterns": [
               "apps/customer-service-e2e/**/*.{js,ts}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         }
       }
     },
@@ -170,7 +182,10 @@
             "lintFilePatterns": [
               "libs/dialog/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -195,7 +210,10 @@
             "lintFilePatterns": [
               "libs/divider/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -220,7 +238,10 @@
             "lintFilePatterns": [
               "libs/flex-grow/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -245,7 +266,10 @@
             "lintFilePatterns": [
               "libs/full-modal/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -270,7 +294,10 @@
             "lintFilePatterns": [
               "libs/heading/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -351,7 +378,10 @@
             "lintFilePatterns": [
               "apps/index/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -388,7 +418,10 @@
             "lintFilePatterns": [
               "apps/index-e2e/**/*.{js,ts}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         }
       }
     },
@@ -403,7 +436,10 @@
             "lintFilePatterns": [
               "libs/notification/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -484,7 +520,10 @@
             "lintFilePatterns": [
               "apps/order-formatter/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -521,7 +560,10 @@
             "lintFilePatterns": [
               "apps/order-formatter-e2e/**/*.{js,ts}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         }
       }
     },
@@ -536,7 +578,10 @@
             "lintFilePatterns": [
               "libs/performance/**/*.ts"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
@@ -561,7 +606,10 @@
             "lintFilePatterns": [
               "libs/switch/**/*.{ts,tsx,js,jsx}"
             ]
-          }
+          },
+          "outputs": [
+            "{options.outputFile}"
+          ]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
