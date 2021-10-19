@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Access {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+  url       String   @db.VarChar(1024)
+  path      String   @db.VarChar(1024)
+  method    String   @db.Char(10)
+  query     Json     @db.Json
+  variables Json     @db.Json
+  headers   Json     @db.Json
+  code      Int      @db.Integer
+  message   String?  @db.VarChar(1024)
+  length    Int      @db.Integer
+  ip        String   @db.VarChar(40)
+
+  @@map("access")
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+  name      String   @db.Char(10)
+
+  Item Item[]
+  @@map("category")
+}
+
+model Item {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now()) @db.Timestamp(6)
+  updatedAt  DateTime @updatedAt
+  frequency  Int      @default(0) @db.Integer
+  content    String   @db.VarChar(1024)
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@map("item")
+}

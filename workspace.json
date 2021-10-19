@@ -109,7 +109,9 @@
           "executor": "@nrwl/web:dev-server",
           "options": {
             "buildTarget": "customer-service:build",
-            "hmr": true
+            "hmr": true,
+            "browserTarget": "customer-service-api:build:development",
+            "proxyConfig": "apps/customer-service/proxy.config.json"
           },
           "configurations": {
             "production": {
@@ -618,6 +620,106 @@
           ],
           "options": {
             "jestConfig": "libs/switch/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "customer-service-api": {
+      "root": "apps/customer-service-api",
+      "sourceRoot": "apps/customer-service-api/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@rester/nx:esbuild",
+          "options": {
+            "assets": [
+              "apps/customer-service-api/prisma/schema.prisma",
+              "apps/customer-service-api/.env",
+              "apps/customer-service-api/Dockerfile",
+              "apps/customer-service-api/package.json"
+            ],
+            "esbuild": {
+              "bundle": true,
+              "format": "esm",
+              "target": "es2020",
+              "outfile": "./dist/apps/customer-service-api/bundle.dev.mjs",
+              "entryPoints": [
+                "./apps/customer-service-api/src/main.tsx"
+              ]
+            },
+            "tsconfigPath": "apps/customer-service-api/tsconfig.app.json",
+            "extensions": [
+              "tsx"
+            ],
+            "externalAll": true
+          },
+          "configurations": {
+            "production": {
+              "assets": [
+                "apps/customer-service-api/prisma/schema.prisma",
+                "apps/customer-service-api/.env",
+                "apps/customer-service-api/Dockerfile",
+                "apps/customer-service-api/package.json"
+              ],
+              "esbuild": {
+                "bundle": true,
+                "minify": true,
+                "format": "esm",
+                "target": "es2020",
+                "outfile": "./dist/apps/customer-service-api/bundle.prod.mjs",
+                "entryPoints": [
+                  "./apps/customer-service-api/src/main.tsx"
+                ]
+              },
+              "fileReplacements": [
+                {
+                  "replace": "apps/customer-service-api/src/environments/environment.ts",
+                  "with": "apps/customer-service-api/src/environments/environment.prod.ts"
+                }
+              ],
+              "tsconfigPath": "apps/customer-service-api/tsconfig.app.json",
+              "extensions": [
+                "tsx"
+              ],
+              "external": [
+                "@rester/core",
+                "@rester/handlers",
+                "@rester/hooks",
+                "@rester/logger",
+                "@rester/nx",
+                "@rester/serverless",
+                "@rester/utils"
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@rester/nx:serve",
+          "options": {
+            "buildTarget": "customer-service-api:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "customer-service-api:build:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/customer-service-api/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/customer-service-api"
+          ],
+          "options": {
+            "jestConfig": "apps/customer-service-api/jest.config.js",
             "passWithNoTests": true
           }
         }

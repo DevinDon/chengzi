@@ -3,10 +3,17 @@
 # compiled output
 /dist
 /tmp
+/temp
 /out-tsc
+/log
+/logs
+tsconfig.generated.json
 
 # dependencies
 /node_modules
+
+# Env
+.env
 
 # IDEs and editors
 /.idea

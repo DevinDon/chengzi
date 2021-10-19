@@ -4,6 +4,9 @@
 /tmp
 /temp
 /out-tsc
+/log
+/logs
+Dockerfile
 
 # dependencies
 /node_modules

@@ -1,0 +1,3 @@
+# gitignore for apps/aphorism
+
+prisma/client
