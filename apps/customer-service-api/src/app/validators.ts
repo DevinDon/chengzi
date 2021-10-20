@@ -112,3 +112,52 @@ export class BooleanValidation<T> extends BaseValidation<T> {
   }
 
 }
+
+export class StringValidation<T> extends BaseValidation<T> {
+
+  public readonly value: string;
+
+  constructor(input: T) {
+    super(input);
+    switch (typeof input) {
+      case 'string':
+        this.value = input;
+        break;
+      case 'bigint':
+      case 'number':
+      case 'boolean':
+      case 'symbol':
+      case 'function':
+        this.value = input.toString();
+        break;
+      default:
+        this.value = '';
+        break;
+    }
+  }
+
+  public isExisted(): boolean {
+    return this.input !== undefined && this.input !== null;
+  }
+
+  public isNotExisted(): boolean {
+    return !this.isExisted();
+  }
+
+  public isEquals(value: string): boolean {
+    return this.value === value;
+  }
+
+  public isNotEquals(value: string): boolean {
+    return !this.isEquals(value);
+  }
+
+  public is(validate: (input: string) => boolean): boolean {
+    return validate(this.value);
+  }
+
+  public isNot(validate: (input: string) => boolean): boolean {
+    return !this.is(validate);
+  }
+
+}

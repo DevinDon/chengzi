@@ -8,7 +8,10 @@ import { itemSchema } from './common';
 
 const requestSchema = Type.Object({
   content: Type.String({ maxLength: 1024 }),
-  categoryId: Type.Optional(Type.Number({ minimum: 1 })),
+  categoryId: Type.Union([
+    Type.Optional(Type.Number({ minimum: 1 })),
+    Type.Null(),
+  ]),
 });
 
 export const ItemPostHandler: Handler =

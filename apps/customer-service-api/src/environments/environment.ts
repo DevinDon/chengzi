@@ -2,7 +2,7 @@ import { ResterListeningOptions, ResterServerOptions } from '@rester/core/core/r
 import { Level } from '@rester/logger';
 
 const serverOptions: ResterServerOptions = {
-  level: Level.debug,
+  level: Level.info,
 };
 
 const listeningOptions: ResterListeningOptions = {

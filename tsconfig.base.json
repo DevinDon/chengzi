@@ -8,24 +8,53 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2017", "es2018", "es2019", "dom"],
+    "target": "ES2015",
+    "module": "ES2020",
+    "lib": [
+      "ES2017",
+      "ES2018",
+      "ES2019",
+      "ES2020",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@chengzi-tools/app-container": ["libs/app-container/src/index.ts"],
-      "@chengzi-tools/copyright": ["libs/copyright/src/index.ts"],
-      "@chengzi-tools/dialog": ["libs/dialog/src/index.ts"],
-      "@chengzi-tools/divider": ["libs/divider/src/index.ts"],
-      "@chengzi-tools/flex-grow": ["libs/flex-grow/src/index.ts"],
-      "@chengzi-tools/full-modal": ["libs/full-modal/src/index.ts"],
-      "@chengzi-tools/heading": ["libs/heading/src/index.ts"],
-      "@chengzi-tools/notification": ["libs/notification/src/index.ts"],
-      "@chengzi-tools/performance": ["libs/performance/src/index.ts"],
-      "@chengzi-tools/switch": ["libs/switch/src/index.ts"]
+      "@chengzi-tools/app-container": [
+        "libs/app-container/src/index.ts"
+      ],
+      "@chengzi-tools/copyright": [
+        "libs/copyright/src/index.ts"
+      ],
+      "@chengzi-tools/dialog": [
+        "libs/dialog/src/index.ts"
+      ],
+      "@chengzi-tools/divider": [
+        "libs/divider/src/index.ts"
+      ],
+      "@chengzi-tools/flex-grow": [
+        "libs/flex-grow/src/index.ts"
+      ],
+      "@chengzi-tools/full-modal": [
+        "libs/full-modal/src/index.ts"
+      ],
+      "@chengzi-tools/heading": [
+        "libs/heading/src/index.ts"
+      ],
+      "@chengzi-tools/notification": [
+        "libs/notification/src/index.ts"
+      ],
+      "@chengzi-tools/performance": [
+        "libs/performance/src/index.ts"
+      ],
+      "@chengzi-tools/switch": [
+        "libs/switch/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

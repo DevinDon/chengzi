@@ -4,7 +4,7 @@ import { Url, useJsonRequestBody, usePrisma, useUrl } from '@rester/hooks';
 import { Route } from '@rester/serverless';
 import { Http400Exception, Http404Exception } from '@rester/utils';
 import { Static, Type } from '@sinclair/typebox';
-import { NumberValidation } from '../validators';
+import { NumberValidation, StringValidation } from '../validators';
 import { itemSchema } from './common';
 
 const requestSchema = Type.Object({
@@ -14,10 +14,14 @@ const requestSchema = Type.Object({
 
 const validate = (url: Url) => {
   const id = new NumberValidation(url.variables.id);
+  const action = new StringValidation(url.query.action);
   if (id.isInvalid() || id.isNotInteger() || id.isNotLargerThan(0)) {
     throw new Http400Exception('Path variable \'id\' must be a integer > 0');
   }
-  return { id: id.value };
+  if (action.isExisted() && action.isNot(input => ['increase'].includes(input))) {
+    throw new Http400Exception('Query parameter \'action\' must be one of \'[increase]\'');
+  }
+  return { id: id.value, action: action.value };
 };
 
 export const ItemPatchHandler: Handler =
@@ -29,8 +33,8 @@ export const ItemPatchHandler: Handler =
     </SchemaHandler>;
   };
 
-const ItemPatch: Handler<{ id: number; data: Static<typeof requestSchema>; }> =
-  async ({ id, data }, { useContext }) => {
+const ItemPatch: Handler<{ id: number; action: string; data: Static<typeof requestSchema>; }> =
+  async ({ id, action, data }, { useContext }) => {
     const { database } = await usePrisma(useContext);
     const itemFound = !!await database.item.findFirst({ where: { id } });
     if (!itemFound) {
@@ -46,7 +50,9 @@ const ItemPatch: Handler<{ id: number; data: Static<typeof requestSchema>; }> =
     }
     return database.item.update({
       where: { id },
-      data,
+      data: action === 'increase'
+        ? { ...data, frequency: { increment: 1 } }
+        : data,
       include: { category: true },
     });
   };
