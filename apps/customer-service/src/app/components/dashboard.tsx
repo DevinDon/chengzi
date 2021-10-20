@@ -1,5 +1,5 @@
 import tw from 'tailwind-styled-components';
-import { Category, useCategories } from '../states';
+import { Category, useCategories, useItems } from '../states';
 import { CategoryComponent, CreateCategoryComponent, UncategoryComponent } from './category';
 import styled from 'styled-components';
 
@@ -23,6 +23,7 @@ const StyledContainer = styled.div`
     scroll-behavior: smooth;
     overflow: scroll;
     transform:rotateX(180deg);
+    padding: 1rem;
 
     > div {
       transform:rotateX(180deg);
@@ -32,21 +33,22 @@ const StyledContainer = styled.div`
 const StyledDashboard = tw.div`
   flex flex-row
   justify-around items-start
-  p-4 space-x-4
+  space-x-4
   w-max
 `;
 
 export const DashboardComponent = () => {
 
   const categories: Category[] = useCategories();
+  const items = useItems();
 
   return <StyledContainer>
     <StyledDashboard>
-      <UncategoryComponent />
+      {items.filter(item => item.categoryId === null).length ? <UncategoryComponent /> : undefined}
       {
         categories
           .sort((a, b) => a.id - b.id)
-          .map(category => <CategoryComponent key={category.name} {...category} />)
+          .map(category => <CategoryComponent key={category.id} {...category} />)
       }
       <CreateCategoryComponent />
     </StyledDashboard>

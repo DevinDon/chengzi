@@ -53,7 +53,7 @@ const useItemser = ({ initial = loadItems() }) => {
     },
     [],
   );
-  return { items, insert, remove, update, increaseFrequency };
+  return { items, insert, remove, update, increaseFrequency, setItems };
 };
 
 // 3️⃣ Wrap your hook with the constate factory splitting the values
@@ -64,6 +64,7 @@ export const [
   useItemRemove,
   useItemUpdate,
   useItemFrequencyIncrease,
+  useSetItems,
 ] = constate(
   useItemser,
   value => value.items,
@@ -71,4 +72,5 @@ export const [
   value => value.remove,
   value => value.update,
   value => value.increaseFrequency,
+  value => value.setItems,
 );

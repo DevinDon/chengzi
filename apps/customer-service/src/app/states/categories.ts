@@ -23,7 +23,7 @@ const useCategorieser = ({ initial = loadCategories() }) => {
   );
   const remove = useCallback(
     async (id: Category['id'], deleteItems: boolean = false) => {
-      const response = await fetch(`/api/categories/${id}?deleteItems=${deleteItems}`, { method: 'DELETE' });
+      const response = await fetch(`/api/categories/${id}`, { method: 'DELETE', body: JSON.stringify({ deleteItems }), headers: { 'content-type': 'application/json' } });
       const data = await response.json();
       if (response.status < 300) {
         return setCategories(prev => prev.filter(category => category.id !== id));

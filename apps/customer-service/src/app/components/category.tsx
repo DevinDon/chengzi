@@ -1,9 +1,9 @@
-import { CheckIcon, DocumentAddIcon, PencilIcon } from '@heroicons/react/outline';
-import { useContext, useState } from 'react';
+import { CheckIcon, DocumentAddIcon, PencilIcon, TrashIcon } from '@heroicons/react/outline';
+import { useCallback, useContext, useState } from 'react';
 import tw from 'tailwind-styled-components';
 import { DialogContext } from '../constants/dialog-context';
-import { Category, useCategoryInsert, useCategoryUpdate } from '../states';
-import { useItems } from '../states/items';
+import { Category, useCategoryInsert, useCategoryRemove, useCategoryUpdate } from '../states';
+import { useItems, useSetItems } from '../states/items';
 import { ItemComponent, StyledItem } from './item';
 
 const StyledContainer = tw.div`
@@ -16,15 +16,14 @@ const StyledContainer = tw.div`
 `;
 
 const StyledHeadingContainer = tw.div`
-  flex flex-row justify-between items-center
+  flex flex-row justify-center items-center
   group
   w-full mb-4
   text-gray-600
 `;
 
 const StyledHeading = tw.div`
-  flex-grow flex-shrink-0
-  font-bold text-xl text-center
+  font-bold text-xl
   group-hover:text-gray-900
   ${props => props.contentEditable ? 'ring-2' : ''}
 `;
@@ -50,11 +49,26 @@ export const CategoryComponent = (category: Props) => {
   const [heading, setHeading] = useState<HTMLHeadingElement>();
 
   const items = useItems();
+  const setItems = useSetItems();
   const { openEditorDialog } = useContext(DialogContext);
   const update = useCategoryUpdate();
+  const remove = useCategoryRemove();
+
+  const removeCategory = useCallback(
+    () => {
+      remove(category.id);
+      setItems(prev => {
+        const affectedItems = prev.filter(item => item.categoryId === category.id);
+        return affectedItems.map(item => ({ ...item, categoryId: null }));
+      });
+    },
+    [category.id, remove, setItems],
+  );
 
   return <StyledContainer>
     <StyledHeadingContainer>
+      <StyledHeadingButton className="cursor-default" />
+      <StyledHeadingButton className="cursor-default" />
       <StyledHeading
         ref={element => setHeading(element)}
         contentEditable={isEditing}
@@ -70,6 +84,9 @@ export const CategoryComponent = (category: Props) => {
       </StyledHeading>
       <StyledHeadingButton className={isEditing ? 'opacity-100' : ''} onClick={() => setIsEditing(!isEditing)}>
         {isEditing ? <CheckIcon onClick={() => update(category.id, newCategory)} /> : <PencilIcon onClick={() => setTimeout(() => heading?.focus(), 0)} />}
+      </StyledHeadingButton>
+      <StyledHeadingButton className={isEditing ? 'opacity-100' : ''} onClick={removeCategory}>
+        <TrashIcon />
       </StyledHeadingButton>
     </StyledHeadingContainer>
     <StyledList>
@@ -116,7 +133,7 @@ export const CreateCategoryComponent = () => {
   const insert = useCategoryInsert();
   return <StyledContainer>
     <StyledHeadingContainer>
-      <StyledHeading>未分类</StyledHeading>
+      <StyledHeading>创建新分类</StyledHeading>
     </StyledHeadingContainer>
     <StyledList className="h-48 justify-center">
       <StyledItem className="cursor-pointer flex-grow" onClick={() => insert({ name: '新分类' })}>
