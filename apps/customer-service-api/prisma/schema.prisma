@@ -29,7 +29,7 @@ model Category {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
-  name      String   @db.Char(10)
+  name      String   @db.VarChar(10)
   items     Item[]
 
   @@map("category")

@@ -3,49 +3,48 @@ import { ExceptionHandler, SchemaHandler } from '@rester/handlers';
 import { Url, usePrisma, useUrl } from '@rester/hooks';
 import { Route } from '@rester/serverless';
 import { Http400Exception, Http404Exception } from '@rester/utils';
-import { BooleanValidation, NumberValidation } from '../validators';
-import { categorySchema } from './common';
+import { NumberValidation } from '../validators';
+import { itemSchema } from './common';
 
 const validate = (url: Url) => {
   const id = new NumberValidation(url.variables.id);
-  const items = new BooleanValidation(url.query.items);
   if (id.isInvalid() || id.isNotInteger() || id.isNotLargerThan(0)) {
     throw new Http400Exception('Path variable \'id\' must be a integer > 0');
   }
-  return { id: id.value, items: items.value };
+  return { id: id.value };
 };
 
-export const CategoryGetHandler: Handler =
+export const ItemGetHandler: Handler =
   async (_, { useContext }) => {
     const { url } = useUrl(useContext);
-    return <SchemaHandler schema={categorySchema}>
-      <CategoryGet {...validate(url)} />
+    return <SchemaHandler schema={itemSchema}>
+      <ItemGet {...validate(url)} />
     </SchemaHandler>;
   };
 
-const CategoryGet: Handler<{ id: number; items: boolean; }> =
-  async ({ id, items }, { useContext }) => {
+const ItemGet: Handler<{ id: number; }> =
+  async ({ id }, { useContext }) => {
     const { database } = await usePrisma(useContext);
-    const found = await database.category.findUnique({
+    const found = await database.item.findUnique({
       where: { id },
       include: {
-        items,
+        category: true,
       },
     });
     if (!found) {
-      throw new Http404Exception(`category '#${id}' not found`);
+      throw new Http404Exception(`item '#${id}' not found`);
     }
     return found;
   };
 
-export const categoryGetRoute: Route = {
+export const itemGetRoute: Route = {
   location: {
     method: 'get',
-    path: '/categories/:id',
+    path: '/items/:id',
   },
   handler: () => <ExceptionHandler>
-    <CategoryGetHandler />
+    <ItemGetHandler />
   </ExceptionHandler>,
 };
 
-export default categoryGetRoute;
+export default itemGetRoute;
