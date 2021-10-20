@@ -2,12 +2,12 @@ import { CheckIcon, DocumentAddIcon, PencilIcon } from '@heroicons/react/outline
 import { useContext, useState } from 'react';
 import tw from 'tailwind-styled-components';
 import { DialogContext } from '../constants/dialog-context';
-import { Category, useCategoryUpdate } from '../states';
+import { Category, useCategoryInsert, useCategoryUpdate } from '../states';
 import { useItems } from '../states/items';
 import { ItemComponent, StyledItem } from './item';
 
 const StyledContainer = tw.div`
-  w-full md:max-w-sm
+  w-full md:max-w-sm md:w-96
   px-2 py-4
   shadow
   rounded
@@ -107,6 +107,21 @@ export const UncategoryComponent = () => {
       <StyledItem className="cursor-pointer" onClick={() => openEditorDialog({ categoryId: null })}>
         <DocumentAddIcon className="w-5 h-5" />
         <span className="ml-1">点击添加未分类短语</span>
+      </StyledItem>
+    </StyledList>
+  </StyledContainer>;
+};
+
+export const CreateCategoryComponent = () => {
+  const insert = useCategoryInsert();
+  return <StyledContainer>
+    <StyledHeadingContainer>
+      <StyledHeading>未分类</StyledHeading>
+    </StyledHeadingContainer>
+    <StyledList className="h-48 justify-center">
+      <StyledItem className="cursor-pointer flex-grow" onClick={() => insert({ name: '新分类' })}>
+        <DocumentAddIcon className="w-5 h-5" />
+        <span className="ml-1">点击创建新分类</span>
       </StyledItem>
     </StyledList>
   </StyledContainer>;

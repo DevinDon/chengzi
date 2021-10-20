@@ -60,7 +60,7 @@ export const EditorDialogComponent = ({ item, isVisible, setIsVisible }: Props) 
       leaveFrom="translate-y-0 md:scale-100"
       leaveTo="translate-y-48 md:scale-0"
     >
-      <DialogComponent title={item.id ? '更新便捷短语' : `新增“${select(item.categoryId)}”系列短语`} actions={{ cancel, confirm }} >
+      <DialogComponent title={item.id ? '更新便捷短语' : `新增“${select(item.categoryId)?.name ?? '未知'}”系列短语`} actions={{ cancel, confirm }} >
         <StyledTextarea
           className={isValid ? '' : 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500'}
           value={newItem?.content}

@@ -11,7 +11,7 @@ const useCategorieser = ({ initial = loadCategories() }) => {
   }, [categories]);
   // 2️⃣ Wrap your updaters with useCallback or use dispatch from useReducer
   const insert = useCallback(
-    async (newCategory: Category) => {
+    async (newCategory: Pick<Category, 'name'>) => {
       const response = await fetch('/api/categories', { method: 'POST', body: JSON.stringify(newCategory), headers: { 'content-type': 'application/json' } });
       const data = await response.json();
       if (response.status < 300) {
@@ -46,7 +46,7 @@ const useCategorieser = ({ initial = loadCategories() }) => {
   const select = useCallback(
     (id: Category['id'] | Item['categoryId']) =>
       id === null
-        ? '未分类'
+        ? { name: '未分类' }
         : categories.find(category => category.id === id),
     [categories],
   );

@@ -3,7 +3,7 @@ import tw from 'tailwind-styled-components';
 
 type Props = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
-}
+};
 
 const StyledAppContainer = tw.div`
   flex
