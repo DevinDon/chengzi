@@ -36,7 +36,7 @@ interface Props {
     y: number;
   };
   actions: MenuAction[];
-};
+}
 
 export const ContextMenuComponent = ({ actions, cursorPosition, isVisible, setVisible }: Props) => {
 
@@ -83,7 +83,7 @@ export const ContextMenuComponent = ({ actions, cursorPosition, isVisible, setVi
               }}>
                 {icon || <QuestionMarkCircleIcon className="w-5 h-5" />}
                 <span className="ml-2">{title}</span>
-              </StyledMenuItem>
+              </StyledMenuItem>,
           )
         }
       </StyledMenu>

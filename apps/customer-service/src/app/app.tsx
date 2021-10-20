@@ -16,7 +16,7 @@ export default () => {
 
   const [isDeleteDialogVisible, setIsDeleteDialogVisible] = useState(false);
   const [isEditorDialogVisible, setIsEditorDialogVisible] = useState(false);
-  const [focusedItem, setFocusedItem] = useState<Item>({ category: 1 } as Item);
+  const [focusedItem, setFocusedItem] = useState<Item | null>(null);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
   const menuContextValue: MenuContextValue = {
@@ -26,7 +26,7 @@ export default () => {
       setCursorPosition({ x: event.clientX, y: event.clientY });
       setFocusedItem(item);
     },
-  }
+  };
 
   const dialogContextValue: DialogContextValue = {
     openConfirmDialog: item => setIsDeleteDialogVisible(true),
@@ -65,16 +65,20 @@ export default () => {
       isVisible={isContextMenuVisible}
       setVisible={setIsContextMenuVisible}
     />
-    <ConfirmDialogComponent
-      item={focusedItem}
-      isVisible={isDeleteDialogVisible}
-      setIsVisible={setIsDeleteDialogVisible}
-    />
-    <EditorDialogComponent
-      item={focusedItem}
-      isVisible={isEditorDialogVisible}
-      setIsVisible={setIsEditorDialogVisible}
-    />
+    {
+      focusedItem && <>
+        <ConfirmDialogComponent
+          item={focusedItem}
+          isVisible={isDeleteDialogVisible}
+          setIsVisible={setIsDeleteDialogVisible}
+        />
+        <EditorDialogComponent
+          item={focusedItem}
+          isVisible={isEditorDialogVisible}
+          setIsVisible={setIsEditorDialogVisible}
+        />
+      </>
+    }
 
   </>;
 

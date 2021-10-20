@@ -13,7 +13,7 @@ describe('App', () => {
             <App />,
           </ItemsProvider>
         </CategoriesProvider>
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     expect(baseElement).toBeTruthy();
@@ -27,7 +27,7 @@ describe('App', () => {
             <App />,
           </ItemsProvider>
         </CategoriesProvider>
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     expect(getByText('客服话术')).toBeTruthy();

@@ -1,6 +1,6 @@
 import tw from 'tailwind-styled-components';
 import { Category, useCategories } from '../states';
-import { CategoryComponent } from './category';
+import { CategoryComponent, UncategoryComponent } from './category';
 
 const StyledDashboard = tw.div`
   flex flex-row flex-wrap
@@ -13,6 +13,7 @@ export const DashboardComponent = () => {
   const categories: Category[] = useCategories();
 
   return <StyledDashboard>
+    <UncategoryComponent />
     {
       categories
         .sort((a, b) => a.id - b.id)

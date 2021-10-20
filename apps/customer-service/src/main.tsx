@@ -12,5 +12,5 @@ ReactDOM.render(
       </ItemsProvider>
     </CategoriesProvider>
   </StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

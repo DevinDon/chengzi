@@ -76,7 +76,7 @@ const StyledItemCopyFailed = tw(StyledItemBasedContainer)`
   bg-red-500 text-white
 `;
 
-export const ItemComponent = ({ id, content, category, frequency }: Props) => {
+export const ItemComponent = ({ id, content, categoryId, frequency }: Props) => {
 
   const { openContextMenu } = useContext(MenuContext);
   const increase = useItemFrequencyIncrease();
@@ -100,7 +100,7 @@ export const ItemComponent = ({ id, content, category, frequency }: Props) => {
       .catch(() => {
         setIsCopyFailed(true);
         resetTimeout();
-      })
+      });
   }, [resetTimeout, increase, id, content, isCopied, isCopyFailed]);
 
   return <StyledItem title={content}>
@@ -110,7 +110,7 @@ export const ItemComponent = ({ id, content, category, frequency }: Props) => {
     <StyledItemContainer
       className={`${isCopied ? '-translate-y-16' : ''}`}
       onClick={copy}
-      onContextMenu={event => openContextMenu(event, { id, content, category, frequency })}
+      onContextMenu={event => openContextMenu(event, { id, content, categoryId, frequency })}
     >
       <StyledItemText>{content}</StyledItemText>
       <StyledItemBadge>

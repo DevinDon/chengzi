@@ -9,7 +9,12 @@ import { itemSchema } from './common';
 
 const requestSchema = Type.Object({
   content: Type.Optional(Type.String({ maxLength: 1024 })),
-  categoryId: Type.Optional(Type.Number({ minimum: 1 })),
+  categoryId: Type.Optional(
+    Type.Union([
+      Type.Number({ minimum: 1 }),
+      Type.Null(),
+    ]),
+  ),
 });
 
 const validate = (url: Url) => {

@@ -1,14 +1,6 @@
 import constate from 'constate';
 import { useCallback, useEffect, useState } from 'react';
-import { loadLastID, saveLastID } from '.';
 import { Item, loadItems, saveItems } from './data';
-
-const insertNewItem = (item: Item, items: Item[]) => {
-  const id = loadLastID() + 1;
-  const newItem: Item = { ...item, id, frequency: 0 };
-  saveLastID(id);
-  return [...items, newItem];
-};
 
 // 1️⃣ Create a custom hook that receives props
 const useItemser = ({ initial = loadItems() }) => {
@@ -18,36 +10,61 @@ const useItemser = ({ initial = loadItems() }) => {
   }, [items]);
   // 2️⃣ Wrap your updaters with useCallback or use dispatch from useReducer
   const insert = useCallback(
-    (newItem: Item) =>
-      setItems(prev => insertNewItem(newItem, prev)),
+    async (newItem: Item) => {
+      const response = await fetch('/api/items', { method: 'POST', body: JSON.stringify(newItem), headers: { 'content-type': 'application/json' } });
+      const data = await response.json();
+      if (response.status < 300) {
+        return setItems(prev => [...prev, data]);
+      }
+      throw new Error(data.join());
+    },
     [],
   );
   const remove = useCallback(
-    (id: Item['id']) =>
-      setItems(prev => prev.filter(item => item.id !== id)),
+    async (id: Item['id']) => {
+      const response = await fetch(`/api/items/${id}`, { method: 'DELETE' });
+      const data = await response.json();
+      if (response.status < 300) {
+        return setItems(prev => prev.filter(item => item.id !== id));
+      }
+      throw new Error(data.join());
+    },
     [],
   );
   const update = useCallback(
-    (newItem: Item) =>
-      setItems(prev => [...prev.filter(item => item.id !== newItem.id), newItem]),
+    async (id: Item['id'], newItem: Item) => {
+      const response = await fetch(`/api/items/${id}`, { method: 'PATCH', body: JSON.stringify(newItem), headers: { 'content-type': 'application/json' } });
+      const data = await response.json();
+      if (response.status < 300) {
+        return setItems(prev => [...prev.filter(item => item.id !== id), data]);
+      }
+      throw new Error(data.join());
+    },
     [],
   );
   const increaseFrequency = useCallback(
-    (id: Item['id']) =>
-      setItems(prev => [
-        ...prev.filter(item => item.id !== id),
-        {
-          ...prev.find(item => item.id === id) as Item,
-          frequency: (prev.find(item => item.id === id) as Item).frequency + 1,
-        },
-      ]),
+    async (id: Item['id']) => {
+      const response = await fetch(`/api/items/${id}?action=increase`, { method: 'PATCH', body: JSON.stringify({}), headers: { 'content-type': 'application/json' } });
+      const data = await response.json();
+      if (response.status < 300) {
+        return setItems(prev => [...prev.filter(item => item.id !== id), data]);
+      }
+      throw new Error(data.join());
+    },
     [],
   );
   return { items, insert, remove, update, increaseFrequency };
 };
 
 // 3️⃣ Wrap your hook with the constate factory splitting the values
-export const [ItemsProvider, useItems, useItemInsert, useItemRemove, useItemUpdate, useItemFrequencyIncrease] = constate(
+export const [
+  ItemsProvider,
+  useItems,
+  useItemInsert,
+  useItemRemove,
+  useItemUpdate,
+  useItemFrequencyIncrease,
+] = constate(
   useItemser,
   value => value.items,
   value => value.insert,

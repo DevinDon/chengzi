@@ -27,18 +27,18 @@ export const EditorDialogComponent = ({ item, isVisible, setIsVisible }: Props) 
   const [newItem, setNewItem] = useState<Props['item']>(item);
   const [isValid, setIsValid] = useState(true);
 
-  const select = useCategorySelect();
   const insert = useItemInsert();
   const update = useItemUpdate();
-  const confirm = () => {
+  const select = useCategorySelect();
+  const confirm = async () => {
     if (!newItem.content) {
       setIsValid(false);
       return;
     }
     if (item.id) {
-      update(newItem as Item);
+      await update(item.id, newItem as Item);
     } else {
-      insert(newItem as Item);
+      await insert(newItem as Item);
     }
     setIsVisible(false);
   };
@@ -60,7 +60,7 @@ export const EditorDialogComponent = ({ item, isVisible, setIsVisible }: Props) 
       leaveFrom="translate-y-0 md:scale-100"
       leaveTo="translate-y-48 md:scale-0"
     >
-      <DialogComponent title={item.id ? '更新便捷短语' : `新增“${select(item.category)?.name || '未分类'}”系列短语`} actions={{ cancel, confirm }} >
+      <DialogComponent title={item.id ? '更新便捷短语' : `新增“${select(item.categoryId)}”系列短语`} actions={{ cancel, confirm }} >
         <StyledTextarea
           className={isValid ? '' : 'border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500'}
           value={newItem?.content}

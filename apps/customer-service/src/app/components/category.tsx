@@ -63,29 +63,53 @@ export const CategoryComponent = (category: Props) => {
         onKeyDown={({ code, currentTarget: target }) => {
           if (code.toLowerCase() !== 'enter') { return; }
           setIsEditing(false);
-          update({ ...newCategory, name: target.innerText });
+          update(category.id, { name: target.innerText });
         }}
       >
         {newCategory.name}
       </StyledHeading>
       <StyledHeadingButton className={isEditing ? 'opacity-100' : ''} onClick={() => setIsEditing(!isEditing)}>
-        {isEditing ? <CheckIcon onClick={() => update(newCategory)} /> : <PencilIcon onClick={() => setTimeout(() => heading?.focus(), 0)} />}
+        {isEditing ? <CheckIcon onClick={() => update(category.id, newCategory)} /> : <PencilIcon onClick={() => setTimeout(() => heading?.focus(), 0)} />}
       </StyledHeadingButton>
     </StyledHeadingContainer>
     <StyledList>
       {
         items
-          .filter(item => item.category === category.id)
+          .filter(item => item.categoryId === category.id)
           .sort((a, b) => b.frequency - a.frequency)
           .map(item => <ItemComponent key={item.id} {...item} />)
       }
-      <StyledItem className="cursor-pointer" onClick={() => openEditorDialog({ category: category.id })}>
+      <StyledItem className="cursor-pointer" onClick={() => openEditorDialog({ categoryId: category.id })}>
         <DocumentAddIcon className="w-5 h-5" />
         <span className="ml-1">点击添加常用短语</span>
       </StyledItem>
     </StyledList>
   </StyledContainer>;
 
+};
+
+export const UncategoryComponent = () => {
+
+  const items = useItems();
+  const { openEditorDialog } = useContext(DialogContext);
+
+  return <StyledContainer>
+    <StyledHeadingContainer>
+      <StyledHeading>未分类</StyledHeading>
+    </StyledHeadingContainer>
+    <StyledList>
+      {
+        items
+          .filter(item => item.categoryId === null)
+          .sort((a, b) => b.frequency - a.frequency)
+          .map(item => <ItemComponent key={item.id} {...item} />)
+      }
+      <StyledItem className="cursor-pointer" onClick={() => openEditorDialog({ categoryId: null })}>
+        <DocumentAddIcon className="w-5 h-5" />
+        <span className="ml-1">点击添加未分类短语</span>
+      </StyledItem>
+    </StyledList>
+  </StyledContainer>;
 };
 
 export default CategoryComponent;
