@@ -30,19 +30,19 @@ model Category {
   createdAt DateTime @default(now()) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
   name      String   @db.Char(10)
+  items     Item[]
 
-  Item Item[]
   @@map("category")
 }
 
 model Item {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now()) @db.Timestamp(6)
-  updatedAt  DateTime @updatedAt
-  frequency  Int      @default(0) @db.Integer
-  content    String   @db.VarChar(1024)
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
+  id         Int       @id @default(autoincrement())
+  createdAt  DateTime  @default(now()) @db.Timestamp(6)
+  updatedAt  DateTime  @updatedAt
+  frequency  Int       @default(0) @db.Integer
+  content    String    @db.VarChar(1024)
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
 
   @@map("item")
 }
