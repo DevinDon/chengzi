@@ -44,7 +44,8 @@ export const Seed: Handler<{ count: number; }> =
       });
       logger.info(`Created ${created.count} categories`);
     }
-    const { id, name } = (await database.category.findFirst())!;
+    const list = await database.category.findMany({ take: 5 });
+    const { id, name } = list[Math.floor(Math.random() * list.length)];
     await database.item.createMany({
       data: Array.from({ length: count }, () => ({
         content: Random.csentence(6, 1000),

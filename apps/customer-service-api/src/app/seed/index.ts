@@ -1,1 +1,1 @@
-export * from './seed';
+export { seedRoute } from './seed';
