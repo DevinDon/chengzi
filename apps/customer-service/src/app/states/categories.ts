@@ -5,10 +5,13 @@ import { loadCategories, saveCategories } from './data';
 
 // 1️⃣ Create a custom hook that receives props
 const useCategorieser = ({ initial = loadCategories() }) => {
+
   const [categories, setCategories] = useState(initial);
+
   useEffect(() => {
     saveCategories(categories);
   }, [categories]);
+
   // 2️⃣ Wrap your updaters with useCallback or use dispatch from useReducer
   const insert = useCallback(
     async (newCategory: Pick<Category, 'name'>) => {
@@ -21,6 +24,7 @@ const useCategorieser = ({ initial = loadCategories() }) => {
     },
     [],
   );
+
   const remove = useCallback(
     async (id: Category['id'], deleteItems: boolean = false) => {
       const response = await fetch(`/api/categories/${id}`, { method: 'DELETE', body: JSON.stringify({ deleteItems }), headers: { 'content-type': 'application/json' } });
@@ -32,6 +36,7 @@ const useCategorieser = ({ initial = loadCategories() }) => {
     },
     [],
   );
+
   const update = useCallback(
     async (id: Category['id'], newCategory: Pick<Category, 'name'>) => {
       const response = await fetch(`/api/categories/${id}`, { method: 'PATCH', body: JSON.stringify(newCategory), headers: { 'content-type': 'application/json' } });
@@ -43,6 +48,7 @@ const useCategorieser = ({ initial = loadCategories() }) => {
     },
     [],
   );
+
   const select = useCallback(
     (id: Category['id'] | Item['categoryId']) =>
       id === null
@@ -50,7 +56,20 @@ const useCategorieser = ({ initial = loadCategories() }) => {
         : categories.find(category => category.id === id),
     [categories],
   );
-  return { categories, insert, remove, update, select };
+
+  const selectAll = useCallback(
+    async () => {
+      const response = await fetch('/api/categories', { method: 'GET' });
+      const fetched = await response.json();
+      if (response.status < 300) {
+        return setCategories(fetched);
+      }
+      throw new Error(fetched.join());
+    },
+    [],
+  );
+
+  return { categories, insert, remove, update, select, selectAll };
 };
 
 // 3️⃣ Wrap your hook with the constate factory splitting the values
@@ -61,6 +80,7 @@ export const [
   useCategoryRemove,
   useCategoryUpdate,
   useCategorySelect,
+  useCategorySelectAll,
 ] = constate(
   useCategorieser,
   value => value.categories,
@@ -68,4 +88,5 @@ export const [
   value => value.remove,
   value => value.update,
   value => value.select,
+  value => value.selectAll,
 );

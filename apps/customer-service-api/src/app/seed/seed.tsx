@@ -39,7 +39,6 @@ export const Seed: Handler<{ count: number; }> =
       const created = await database.category.createMany({
         data: Array.from({ length: 5 - existed }, () => ({
           name: Random.cword(3, 5),
-          description: Random.cword(10, 20),
         })),
       });
       logger.info(`Created ${created.count} categories`);

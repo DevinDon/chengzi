@@ -4,10 +4,13 @@ import { Item, loadItems, saveItems } from './data';
 
 // 1️⃣ Create a custom hook that receives props
 const useItemser = ({ initial = loadItems() }) => {
+
   const [items, setItems] = useState(initial);
+
   useEffect(() => {
     saveItems(items);
   }, [items]);
+
   // 2️⃣ Wrap your updaters with useCallback or use dispatch from useReducer
   const insert = useCallback(
     async (newItem: Item) => {
@@ -20,6 +23,7 @@ const useItemser = ({ initial = loadItems() }) => {
     },
     [],
   );
+
   const remove = useCallback(
     async (id: Item['id']) => {
       const response = await fetch(`/api/items/${id}`, { method: 'DELETE' });
@@ -31,6 +35,7 @@ const useItemser = ({ initial = loadItems() }) => {
     },
     [],
   );
+
   const update = useCallback(
     async (id: Item['id'], newItem: Item) => {
       const response = await fetch(`/api/items/${id}`, { method: 'PATCH', body: JSON.stringify(newItem), headers: { 'content-type': 'application/json' } });
@@ -42,6 +47,7 @@ const useItemser = ({ initial = loadItems() }) => {
     },
     [],
   );
+
   const increaseFrequency = useCallback(
     async (id: Item['id']) => {
       const response = await fetch(`/api/items/${id}?action=increase`, { method: 'PATCH', body: JSON.stringify({}), headers: { 'content-type': 'application/json' } });
@@ -53,24 +59,40 @@ const useItemser = ({ initial = loadItems() }) => {
     },
     [],
   );
-  return { items, insert, remove, update, increaseFrequency, setItems };
+
+  const selectAll = useCallback(
+    async () => {
+      const response = await fetch('/api/items', { method: 'GET' });
+      const fetched = await response.json();
+      if (response.status < 300) {
+        return setItems(fetched);
+      }
+      throw new Error(fetched.join());
+    },
+    [],
+  );
+
+  return { items, setItems, insert, remove, update, increaseFrequency, selectAll };
+
 };
 
 // 3️⃣ Wrap your hook with the constate factory splitting the values
 export const [
   ItemsProvider,
   useItems,
+  useSetItems,
   useItemInsert,
   useItemRemove,
   useItemUpdate,
   useItemFrequencyIncrease,
-  useSetItems,
+  useItemSelectAll,
 ] = constate(
   useItemser,
   value => value.items,
+  value => value.setItems,
   value => value.insert,
   value => value.remove,
   value => value.update,
   value => value.increaseFrequency,
-  value => value.setItems,
+  value => value.selectAll,
 );

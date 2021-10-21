@@ -1,7 +1,8 @@
-import tw from 'tailwind-styled-components';
-import { Category, useCategories, useItems } from '../states';
-import { CategoryComponent, CreateCategoryComponent, UncategoryComponent } from './category';
+import { useEffect } from 'react';
 import styled from 'styled-components';
+import tw from 'tailwind-styled-components';
+import { useCategories, useCategorySelectAll, useItems, useItemSelectAll } from '../states';
+import { CategoryComponent, CreateCategoryComponent, UncategoryComponent } from './category';
 
 const StyledContainer = styled.div`
     ::-webkit-scrollbar {
@@ -31,16 +32,26 @@ const StyledContainer = styled.div`
 `;
 
 const StyledDashboard = tw.div`
-  flex flex-row
-  justify-around items-start
-  space-x-4
-  w-max
+  flex flex-col justify-center items-center
+  md:flex-row md:justify-around md:items-start
+  w-full
+  md:w-max
+  space-y-4
+  md:space-y-0 md:space-x-4
 `;
 
 export const DashboardComponent = () => {
 
-  const categories: Category[] = useCategories();
+  const categories = useCategories();
   const items = useItems();
+
+  const fetchAllCategories = useCategorySelectAll();
+  const fetchAllItems = useItemSelectAll();
+
+  useEffect(() => {
+    fetchAllCategories();
+    fetchAllItems();
+  }, [fetchAllCategories, fetchAllItems]);
 
   return <StyledContainer>
     <StyledDashboard>
