@@ -22,3 +22,5 @@ export const itemSchema = Type.Object({
     ]),
   ),
 });
+
+export const itemsSchema = Type.Array(itemSchema);

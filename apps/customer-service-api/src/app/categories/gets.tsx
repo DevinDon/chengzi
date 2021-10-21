@@ -7,12 +7,12 @@ import { BooleanValidation, NumberValidation } from '../validators';
 import { categoriesSchema } from './common';
 
 const validate = (url: Url) => {
-  const count = new NumberValidation(url.query.count || 10);
+  const count = new NumberValidation(url.query.count);
   const items = new BooleanValidation(url.query.items);
   if (count.isExisted() && (count.isInvalid() || count.isNotInteger() || count.isNotLargerOrEqualThan(1))) {
     throw new Http400Exception('Query parameter \'count\' must be a integer >= 1');
   }
-  return { count: count.value, items: items.value };
+  return { count: count.value || undefined, items: items.value };
 };
 
 export const CategoriesGetHandler: Handler =
@@ -23,7 +23,7 @@ export const CategoriesGetHandler: Handler =
     </SchemaHandler>;
   };
 
-const CategoriesGet: Handler<{ count: number; items: boolean; }> =
+const CategoriesGet: Handler<{ count?: number; items: boolean; }> =
   async ({ count, items }, { useContext }) => {
     const { database } = await usePrisma(useContext);
     return database.category.findMany({

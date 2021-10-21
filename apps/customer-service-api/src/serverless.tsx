@@ -1,7 +1,7 @@
 import { registerRoute, Serverless } from '@rester/serverless';
 import { benchmarkRoute } from './app/benchmark';
 import { categoriesGetRoute, categoryDeleteRoute, categoryGetRoute, categoryPatchRoute, categoryPostRoute } from './app/categories';
-import { itemDeleteRoute, itemGetRoute, itemPatchRoute, itemPostRoute } from './app/items';
+import { itemDeleteRoute, itemGetRoute, itemPatchRoute, itemPostRoute, itemsGetRoute } from './app/items';
 import { seedRoute } from './app/seed';
 import { environment } from './environments/environment';
 
@@ -20,6 +20,7 @@ const launchServerless = async () => {
     categoryPostRoute,
     itemDeleteRoute,
     itemGetRoute,
+    itemsGetRoute,
     itemPatchRoute,
     itemPostRoute,
   ]);
