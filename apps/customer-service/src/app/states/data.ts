@@ -16,10 +16,6 @@ export type ItemArgs = Prettify<
   Partial<Omit<Item, 'category'>> & Pick<Item, 'categoryId'>
 >;
 
-export const categories: Category[] = [];
-
-export const items: Item[] = [];
-
 const ITEM_KEY = 'customer-service/items';
 
 export const saveItems = debounce(
@@ -29,7 +25,7 @@ export const saveItems = debounce(
 );
 
 export const loadItems = (): Item[] =>
-  JSON.parse(localStorage.getItem(ITEM_KEY) || 'null') || items;
+  JSON.parse(localStorage.getItem(ITEM_KEY) || 'null') || [];
 
 const CATEGORIES_KEY = 'customer-service/categories';
 
@@ -40,4 +36,4 @@ export const saveCategories = debounce(
 );
 
 export const loadCategories = (): Category[] =>
-  JSON.parse(localStorage.getItem(CATEGORIES_KEY) || 'null') || categories;
+  JSON.parse(localStorage.getItem(CATEGORIES_KEY) || 'null') || [];
