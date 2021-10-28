@@ -9,25 +9,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/app-container/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/app-container/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/app-container"
-          ],
+          "outputs": ["coverage/libs/app-container"],
           "options": {
             "jestConfig": "libs/app-container/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "copyright": {
       "root": "libs/copyright",
@@ -37,25 +32,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/copyright/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/copyright/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/copyright"
-          ],
+          "outputs": ["coverage/libs/copyright"],
           "options": {
             "jestConfig": "libs/copyright/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "customer-service": {
       "root": "apps/customer-service",
@@ -64,18 +54,14 @@
       "targets": {
         "build": {
           "executor": "@nrwl/web:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/customer-service",
             "index": "apps/customer-service/src/index.html",
             "main": "apps/customer-service/src/main.tsx",
             "polyfills": "apps/customer-service/src/polyfills.ts",
             "tsConfig": "apps/customer-service/tsconfig.app.json",
-            "assets": [
-              "apps/customer-service/src/assets"
-            ],
+            "assets": ["apps/customer-service/src/assets"],
             "styles": [],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
@@ -123,25 +109,109 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/customer-service/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["apps/customer-service/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/customer-service"
-          ],
+          "outputs": ["coverage/apps/customer-service"],
           "options": {
             "jestConfig": "apps/customer-service/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
+    },
+    "customer-service-api": {
+      "root": "apps/customer-service-api",
+      "sourceRoot": "apps/customer-service-api/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@rester/nx:esbuild",
+          "options": {
+            "assets": [
+              "apps/customer-service-api/prisma/schema.prisma",
+              "apps/customer-service-api/.env",
+              "apps/customer-service-api/Dockerfile",
+              "apps/customer-service-api/package.json"
+            ],
+            "esbuild": {
+              "bundle": true,
+              "format": "esm",
+              "target": "es2020",
+              "outfile": "./dist/apps/customer-service-api/bundle.dev.mjs",
+              "entryPoints": ["./apps/customer-service-api/src/main.tsx"]
+            },
+            "tsconfigPath": "apps/customer-service-api/tsconfig.app.json",
+            "extensions": ["tsx"],
+            "externalAll": true
+          },
+          "configurations": {
+            "production": {
+              "assets": [
+                "apps/customer-service-api/prisma/schema.prisma",
+                "apps/customer-service-api/.env",
+                "apps/customer-service-api/Dockerfile",
+                "apps/customer-service-api/package.json"
+              ],
+              "esbuild": {
+                "bundle": true,
+                "minify": true,
+                "format": "esm",
+                "target": "es2020",
+                "outfile": "./dist/apps/customer-service-api/bundle.prod.mjs",
+                "entryPoints": ["./apps/customer-service-api/src/main.tsx"]
+              },
+              "fileReplacements": [
+                {
+                  "replace": "apps/customer-service-api/src/environments/environment.ts",
+                  "with": "apps/customer-service-api/src/environments/environment.prod.ts"
+                }
+              ],
+              "tsconfigPath": "apps/customer-service-api/tsconfig.app.json",
+              "extensions": ["tsx"],
+              "external": [
+                "@rester/core",
+                "@rester/handlers",
+                "@rester/hooks",
+                "@rester/logger",
+                "@rester/nx",
+                "@rester/serverless",
+                "@rester/utils"
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@rester/nx:serve",
+          "options": {
+            "buildTarget": "customer-service-api:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "customer-service-api:build:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/customer-service-api/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/customer-service-api"],
+          "options": {
+            "jestConfig": "apps/customer-service-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
     },
     "customer-service-e2e": {
       "root": "apps/customer-service-e2e",
@@ -163,15 +233,13 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/customer-service-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/customer-service-e2e/**/*.{js,ts}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["customer-service"]
     },
     "dialog": {
       "root": "libs/dialog",
@@ -181,25 +249,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/dialog/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/dialog/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/dialog"
-          ],
+          "outputs": ["coverage/libs/dialog"],
           "options": {
             "jestConfig": "libs/dialog/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "divider": {
       "root": "libs/divider",
@@ -209,25 +272,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/divider/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/divider/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/divider"
-          ],
+          "outputs": ["coverage/libs/divider"],
           "options": {
             "jestConfig": "libs/divider/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "flex-grow": {
       "root": "libs/flex-grow",
@@ -237,25 +295,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/flex-grow/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/flex-grow/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/flex-grow"
-          ],
+          "outputs": ["coverage/libs/flex-grow"],
           "options": {
             "jestConfig": "libs/flex-grow/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "full-modal": {
       "root": "libs/full-modal",
@@ -265,25 +318,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/full-modal/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/full-modal/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/full-modal"
-          ],
+          "outputs": ["coverage/libs/full-modal"],
           "options": {
             "jestConfig": "libs/full-modal/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "heading": {
       "root": "libs/heading",
@@ -293,25 +341,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/heading/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/heading/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/heading"
-          ],
+          "outputs": ["coverage/libs/heading"],
           "options": {
             "jestConfig": "libs/heading/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "index": {
       "root": "apps/index",
@@ -320,18 +363,14 @@
       "targets": {
         "build": {
           "executor": "@nrwl/web:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/index",
             "index": "apps/index/src/index.html",
             "main": "apps/index/src/main.tsx",
             "polyfills": "apps/index/src/polyfills.ts",
             "tsConfig": "apps/index/tsconfig.app.json",
-            "assets": [
-              "apps/index/src/assets"
-            ],
+            "assets": ["apps/index/src/assets"],
             "styles": [],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
@@ -377,25 +416,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/index/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["apps/index/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/index"
-          ],
+          "outputs": ["coverage/apps/index"],
           "options": {
             "jestConfig": "apps/index/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "index-e2e": {
       "root": "apps/index-e2e",
@@ -417,15 +451,13 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/index-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/index-e2e/**/*.{js,ts}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["index"]
     },
     "notification": {
       "root": "libs/notification",
@@ -435,25 +467,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/notification/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/notification/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/notification"
-          ],
+          "outputs": ["coverage/libs/notification"],
           "options": {
             "jestConfig": "libs/notification/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "order-formatter": {
       "root": "apps/order-formatter",
@@ -462,18 +489,14 @@
       "targets": {
         "build": {
           "executor": "@nrwl/web:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/order-formatter",
             "index": "apps/order-formatter/src/index.html",
             "main": "apps/order-formatter/src/main.tsx",
             "polyfills": "apps/order-formatter/src/polyfills.ts",
             "tsConfig": "apps/order-formatter/tsconfig.app.json",
-            "assets": [
-              "apps/order-formatter/src/assets"
-            ],
+            "assets": ["apps/order-formatter/src/assets"],
             "styles": [],
             "scripts": [],
             "webpackConfig": "@nrwl/react/plugins/webpack"
@@ -519,25 +542,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/order-formatter/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["apps/order-formatter/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/order-formatter"
-          ],
+          "outputs": ["coverage/apps/order-formatter"],
           "options": {
             "jestConfig": "apps/order-formatter/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "order-formatter-e2e": {
       "root": "apps/order-formatter-e2e",
@@ -559,15 +577,13 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/order-formatter-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/order-formatter-e2e/**/*.{js,ts}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         }
-      }
+      },
+      "tags": [],
+      "implicitDependencies": ["order-formatter"]
     },
     "performance": {
       "root": "libs/performance",
@@ -577,25 +593,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/performance/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/performance/**/*.ts"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/performance"
-          ],
+          "outputs": ["coverage/libs/performance"],
           "options": {
             "jestConfig": "libs/performance/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": []
     },
     "switch": {
       "root": "libs/switch",
@@ -605,145 +616,20 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/switch/**/*.{ts,tsx,js,jsx}"
-            ]
+            "lintFilePatterns": ["libs/switch/**/*.{ts,tsx,js,jsx}"]
           },
-          "outputs": [
-            "{options.outputFile}"
-          ]
+          "outputs": ["{options.outputFile}"]
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/switch"
-          ],
+          "outputs": ["coverage/libs/switch"],
           "options": {
             "jestConfig": "libs/switch/jest.config.js",
             "passWithNoTests": true
           }
         }
-      }
-    },
-    "customer-service-api": {
-      "root": "apps/customer-service-api",
-      "sourceRoot": "apps/customer-service-api/src",
-      "projectType": "application",
-      "targets": {
-        "build": {
-          "executor": "@rester/nx:esbuild",
-          "options": {
-            "assets": [
-              "apps/customer-service-api/prisma/schema.prisma",
-              "apps/customer-service-api/.env",
-              "apps/customer-service-api/Dockerfile",
-              "apps/customer-service-api/package.json"
-            ],
-            "esbuild": {
-              "bundle": true,
-              "format": "esm",
-              "target": "es2020",
-              "outfile": "./dist/apps/customer-service-api/bundle.dev.mjs",
-              "entryPoints": [
-                "./apps/customer-service-api/src/main.tsx"
-              ]
-            },
-            "tsconfigPath": "apps/customer-service-api/tsconfig.app.json",
-            "extensions": [
-              "tsx"
-            ],
-            "externalAll": true
-          },
-          "configurations": {
-            "production": {
-              "assets": [
-                "apps/customer-service-api/prisma/schema.prisma",
-                "apps/customer-service-api/.env",
-                "apps/customer-service-api/Dockerfile",
-                "apps/customer-service-api/package.json"
-              ],
-              "esbuild": {
-                "bundle": true,
-                "minify": true,
-                "format": "esm",
-                "target": "es2020",
-                "outfile": "./dist/apps/customer-service-api/bundle.prod.mjs",
-                "entryPoints": [
-                  "./apps/customer-service-api/src/main.tsx"
-                ]
-              },
-              "fileReplacements": [
-                {
-                  "replace": "apps/customer-service-api/src/environments/environment.ts",
-                  "with": "apps/customer-service-api/src/environments/environment.prod.ts"
-                }
-              ],
-              "tsconfigPath": "apps/customer-service-api/tsconfig.app.json",
-              "extensions": [
-                "tsx"
-              ],
-              "external": [
-                "@rester/core",
-                "@rester/handlers",
-                "@rester/hooks",
-                "@rester/logger",
-                "@rester/nx",
-                "@rester/serverless",
-                "@rester/utils"
-              ]
-            }
-          }
-        },
-        "serve": {
-          "executor": "@rester/nx:serve",
-          "options": {
-            "buildTarget": "customer-service-api:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "customer-service-api:build:production"
-            }
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/customer-service-api/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/customer-service-api"
-          ],
-          "options": {
-            "jestConfig": "apps/customer-service-api/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/react"
-  },
-  "generators": {
-    "@nrwl/react": {
-      "application": {
-        "style": "styled-components",
-        "linter": "eslint",
-        "babel": true
       },
-      "component": {
-        "style": "styled-components"
-      },
-      "library": {
-        "style": "styled-components",
-        "linter": "eslint"
-      }
+      "tags": []
     }
-  },
-  "defaultProject": "index"
+  }
 }

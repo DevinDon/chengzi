@@ -14,12 +14,7 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
   },
@@ -31,66 +26,24 @@
       }
     ]
   },
-  "projects": {
-    "app-container": {
-      "tags": []
-    },
-    "copyright": {
-      "tags": []
-    },
-    "customer-service": {
-      "tags": []
-    },
-    "customer-service-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "customer-service"
-      ]
-    },
-    "dialog": {
-      "tags": []
-    },
-    "divider": {
-      "tags": []
-    },
-    "flex-grow": {
-      "tags": []
-    },
-    "full-modal": {
-      "tags": []
-    },
-    "heading": {
-      "tags": []
-    },
-    "index": {
-      "tags": []
-    },
-    "index-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "index"
-      ]
-    },
-    "notification": {
-      "tags": []
-    },
-    "order-formatter": {
-      "tags": []
-    },
-    "order-formatter-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "order-formatter"
-      ]
-    },
-    "performance": {
-      "tags": []
-    },
-    "switch": {
-      "tags": []
-    },
-    "customer-service-api": {
-      "tags": []
+  "cli": {
+    "defaultCollection": "@nrwl/react"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "styled-components"
+      },
+      "library": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
     }
-  }
+  },
+  "defaultProject": "index"
 }
